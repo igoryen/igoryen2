@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace igoryen2.Models {
 
@@ -20,7 +22,7 @@ namespace igoryen2.Models {
         public string Email { get; set; }
     }
 
-    public class Course { // 10
+    public class Course {
         public Course() {
             this.Faculty = new Faculty();
             this.Students = new List<Student>();
@@ -57,10 +59,7 @@ namespace igoryen2.Models {
         public List<Course> Courses { get; set; }
     }
 
-    public class Person : ApplicationUser { // 10
-
-        //public class Person : IdentityUser { // 10
-
+    public class Person : ApplicationUser {
 
         public Person() {
             FirstName = LastName = Phone = string.Empty;
@@ -107,4 +106,10 @@ namespace igoryen2.Models {
         //public List<ComMethod> ComMethods { get; set; }
     }
 
+
+    public class MyUserInfo {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
 }
