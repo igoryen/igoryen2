@@ -19,5 +19,13 @@ namespace igoryen2.Models {
             modelBuilder.Entity<IdentityUser>().ToTable("Users");
             modelBuilder.Entity<ApplicationUser>().ToTable("Users");
         }
+
+        public DbSet<Cancellation> Cancellations { get; set; }
+        public DbSet<ComMethod> ComMethods { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
+        //public DbSet<Message> Messages { get; set; }
+        public DbSet<MyUserInfo> MyUserInfo { get; set; }
+        public DbSet<Student> Students { get; set; }
     }
 }
