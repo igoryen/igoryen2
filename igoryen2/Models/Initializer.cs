@@ -20,14 +20,14 @@ namespace igoryen2.Models {
                 var role1CreateResult = RoleManager.Create(new IdentityRole(roleAdmin));
             }
 
-            string roleName2 = "Student";
-            if (!RoleManager.RoleExists(roleName2)) {
-                var role2CreateResult = RoleManager.Create(new IdentityRole(roleName2));
+            string roleStudent = "Student";
+            if (!RoleManager.RoleExists(roleStudent)) {
+                var role2CreateResult = RoleManager.Create(new IdentityRole(roleStudent));
             }
 
-            string roleName3 = "Faculty";
-            if (!RoleManager.RoleExists(roleName3)) {
-                var role3CreateResult = RoleManager.Create(new IdentityRole(roleName3));
+            string roleFaculty = "Faculty";
+            if (!RoleManager.RoleExists(roleFaculty)) {
+                var role3CreateResult = RoleManager.Create(new IdentityRole(roleFaculty));
             }
 
             var UserAdmin = new ApplicationUser();
