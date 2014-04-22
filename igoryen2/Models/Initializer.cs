@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Validation;
 
 
 namespace igoryen2.Models {
@@ -85,6 +86,32 @@ namespace igoryen2.Models {
             if (UserIanCreate.Succeeded) {
                 var addUserIanToRoleFacultyResult = UserManager.AddToRole(UserIan.Id, roleFaculty);
             }
+
+            try {
+
+            }
+            catch (DbEntityValidationException e) {
+                //----------------------------------------------------------
+                List<string> output1 = new List<string>();
+                List<string> output2 = new List<string>();
+                foreach (var eve in e.EntityValidationErrors) {
+                    output1.Add("Entity of type " + eve.Entry.Entity.GetType().Name + " in state " + eve.Entry.State + " has the following validation errors:");
+                        foreach (var ve in eve.ValidationErrors) {
+                            output1.Add("- Property: " + ve.PropertyName + ", Error: " + ve.ErrorMessage);
+                        }
+
+                        Console.WriteLine("======================================");
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors) {
+                          Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                              ve.PropertyName, ve.ErrorMessage);
+                        }
+                        
+                    }
+                output2 = output1;
+                throw;
+            } // catch
         }
     }
 }
