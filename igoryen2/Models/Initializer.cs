@@ -37,9 +37,9 @@ namespace igoryen2.Models {
             UserAdmin.UserName = "Alan";
             UserAdmin.HomeTown = "Ottawa";
             UserAdmin.MyUserInfo = userAdminInfo;
-            var UserIgorCreateResult = UserManager.Create(UserAdmin, userAdminPw);
-            if (UserIgorCreateResult.Succeeded) {
-                var addUserIgorToRole1Result = UserManager.AddToRole(UserAdmin.Id, roleAdmin);
+            var UserAdminCreateResult = UserManager.Create(UserAdmin, userAdminPw);
+            if (UserAdminCreateResult.Succeeded) {
+                var addUserAdminToRoleAdminResult = UserManager.AddToRole(UserAdmin.Id, roleAdmin);
             }
 
             var UserBob = new ApplicationUser();
@@ -50,7 +50,7 @@ namespace igoryen2.Models {
             UserBob.MyUserInfo = userBobInfo;
             var UserBobCreate = UserManager.Create(UserBob, userBobPw);
             if (UserBobCreate.Succeeded) {
-                var addUserBobToRole2Result = UserManager.AddToRole(UserBob.Id, roleStudent);
+                var addUserBobToRoleStudentResult = UserManager.AddToRole(UserBob.Id, roleStudent);
             }
 
             var UserIgor = new ApplicationUser();
@@ -59,9 +59,31 @@ namespace igoryen2.Models {
             UserIgor.UserName = "Igor";
             UserIgor.HomeTown = "Sochi";
             UserIgor.MyUserInfo = userIgorInfo;
-            var UserMaryCreate = UserManager.Create(UserIgor, userIgorPw);
-            if (UserMaryCreate.Succeeded) {
-                var addUserMaryToRole2Result = UserManager.AddToRole(UserIgor.Id, roleStudent);
+            var UserIgorCreate = UserManager.Create(UserIgor, userIgorPw);
+            if (UserIgorCreate.Succeeded) {
+                var addUserIgorToRoleStudentResult = UserManager.AddToRole(UserIgor.Id, roleStudent);
+            }
+
+            var UserMark = new ApplicationUser();
+            string UserMarkPw = "123456";
+            var UserMarkInfo = new MyUserInfo() { FirstName = "Mark", LastName = "Fernandes" };
+            UserMark.UserName = "Mark";
+            UserMark.HomeTown = "Markham";
+            UserMark.MyUserInfo = UserMarkInfo;
+            var UserMarkCreate = UserManager.Create(UserMark, UserMarkPw);
+            if (UserMarkCreate.Succeeded) {
+                var addUserMarkToRoleFacultyResult = UserManager.AddToRole(UserMark.Id, roleFaculty);
+            }
+
+            var UserIan = new ApplicationUser();
+            string UserIanPw = "123456";
+            var UserIanInfo = new MyUserInfo() { FirstName = "Ian", LastName = "Tipson" };
+            UserIan.UserName = "Ian";
+            UserIan.HomeTown = "Mississauga";
+            UserIan.MyUserInfo = UserIanInfo;
+            var UserIanCreate = UserManager.Create(UserIan, UserIanPw);
+            if (UserIanCreate.Succeeded) {
+                var addUserIanToRoleFacultyResult = UserManager.AddToRole(UserIan.Id, roleFaculty);
             }
         }
     }
