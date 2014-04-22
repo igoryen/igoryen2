@@ -9,8 +9,8 @@ namespace igoryen2.Models {
         public virtual MyUserInfo MyUserInfo { get; set; }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
-        public ApplicationDbContext()
+    public class DataContext : IdentityDbContext<ApplicationUser> {
+        public DataContext()
             : base("DefaultConnection") {
         }
 
