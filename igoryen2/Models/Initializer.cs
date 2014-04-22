@@ -41,6 +41,28 @@ namespace igoryen2.Models {
             if (UserIgorCreateResult.Succeeded) {
                 var addUserIgorToRole1Result = UserManager.AddToRole(UserAdmin.Id, roleAdmin);
             }
+
+            var UserBob = new ApplicationUser();
+            string userBobPw = "123456";
+            var userBobInfo = new MyUserInfo() { FirstName = "Bob", LastName = "White" };
+            UserBob.UserName = "Bob";
+            UserBob.HomeTown = "Sochi";
+            UserBob.MyUserInfo = userBobInfo;
+            var UserBobCreate = UserManager.Create(UserBob, userBobPw);
+            if (UserBobCreate.Succeeded) {
+                var addUserBobToRole2Result = UserManager.AddToRole(UserBob.Id, roleStudent);
+            }
+
+            var UserIgor = new ApplicationUser();
+            string userIgorPw = "123456";
+            var userIgorInfo = new MyUserInfo() { FirstName = "Igor", LastName = "Entaltsev" };
+            UserIgor.UserName = "Igor";
+            UserIgor.HomeTown = "Sochi";
+            UserIgor.MyUserInfo = userIgorInfo;
+            var UserMaryCreate = UserManager.Create(UserIgor, userIgorPw);
+            if (UserMaryCreate.Succeeded) {
+                var addUserMaryToRole2Result = UserManager.AddToRole(UserIgor.Id, roleStudent);
+            }
         }
     }
 }
