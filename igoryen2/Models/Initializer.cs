@@ -32,12 +32,11 @@ namespace igoryen2.Models {
             }
 
             var UserAdmin = new ApplicationUser();
-            //string userName1 = "Igor";
             string userAdminPw = "123456";
             var userAdminInfo = new MyUserInfo() { FirstName = "Admin", LastName = "Admin" };
+            UserAdmin.MyUserInfo = userAdminInfo;
             UserAdmin.UserName = "Admin";
             UserAdmin.HomeTown = "Ottawa";
-            UserAdmin.MyUserInfo = userAdminInfo;
             var UserAdminCreateResult = UserManager.Create(UserAdmin, userAdminPw);
             if (UserAdminCreateResult.Succeeded) {
                 var addUserAdminToRoleAdminResult = UserManager.AddToRole(UserAdmin.Id, roleAdmin);
@@ -86,10 +85,15 @@ namespace igoryen2.Models {
             //if (UserIanCreate.Succeeded) {
             //    var addUserIanToRoleFacultyResult = UserManager.AddToRole(UserIan.Id, roleFaculty);
             //}
-
             try {
                 // create student igor (3)
                 Student igor = new Student();
+                // add igor to role "Student"
+                string userIgorPw = "123456";
+                var UserIgorCreate = UserManager.Create(igor, userIgorPw);
+                if (UserIgorCreate.Succeeded) {
+                    var addUserIgorToRoleStudentResult = UserManager.AddToRole(igor.Id, roleStudent);
+                }
                 igor.FirstName = "Igor";
                 igor.HomeTown = "Sochi";
                 igor.LastName = "Entaltsev";
@@ -99,16 +103,16 @@ namespace igoryen2.Models {
                 igor.Phone = "555-555-5555";
                 igor.SenecaId = "011111111";
                 igor.UserName = "Igor";
-                // add igor to role "Student"
-                string userIgorPw = "123456";
-                var UserIgorCreate = UserManager.Create(igor, userIgorPw);
-                if (UserIgorCreate.Succeeded) {
-                    var addUserIgorToRoleStudentResult = UserManager.AddToRole(igor.Id, roleStudent);
-                }
-                dc.Students.Add(igor);
+                 dc.Students.Add(igor);
 
                 // create student bob (2)
                 Student bob = new Student();
+                // add bob to role "Student"
+                string userBobPw = "123456";
+                var UserBobCreate = UserManager.Create(bob, userBobPw);
+                if (UserBobCreate.Succeeded) {
+                    var addUserBobToRoleStudentResult = UserManager.AddToRole(bob.Id, roleStudent);
+                }
                 bob.FirstName = "Bob";
                 bob.HomeTown = "Mishawaka";
                 bob.LastName = "White";
@@ -118,16 +122,17 @@ namespace igoryen2.Models {
                 bob.Phone = "777-777-7777";
                 bob.SenecaId = "022222222";
                 bob.UserName = "Bob";
-                // add bob to role "Student"
-                string userBobPw = "123456";
-                var UserBobCreate = UserManager.Create(bob, userBobPw);
-                if (UserBobCreate.Succeeded) {
-                    var addUserBobToRoleStudentResult = UserManager.AddToRole(bob.Id, roleStudent);
-                }
+
                 dc.Students.Add(bob);
 
                 // create student wei (4)
                 Student wei = new Student();
+                // add bob to role "Student"
+                string userWeiPw = "123456";
+                var UserWeiCreate = UserManager.Create(wei, userWeiPw);
+                if (UserWeiCreate.Succeeded) {
+                    var addUserWeiToRoleStudentResult = UserManager.AddToRole(wei.Id, roleStudent);
+                }
                 wei.FirstName = "Wei";
                 wei.HomeTown = "Welland";
                 wei.LastName = "Chen";
@@ -137,16 +142,17 @@ namespace igoryen2.Models {
                 wei.Phone = "444-444-4444";
                 wei.SenecaId = "044444444";
                 wei.UserName = "Wei";
-                // add bob to role "Student"
-                string userWeiPw = "123456";
-                var UserWeiCreate = UserManager.Create(wei, userWeiPw);
-                if (UserWeiCreate.Succeeded) {
-                    var addUserWeiToRoleStudentResult = UserManager.AddToRole(wei.Id, roleStudent);
-                }
+
                 dc.Students.Add(wei);
 
                 // create student john (5)
                 Student john = new Student();
+                // add john to role "Student"
+                string userJohnPw = "123456";
+                var UserJohnCreate = UserManager.Create(john, userJohnPw);
+                if (UserJohnCreate.Succeeded) {
+                    var addUserJohnToRoleStudentResult = UserManager.AddToRole(john.Id, roleStudent);
+                }
                 john.FirstName = "John";
                 john.HomeTown = "Belleville";
                 john.LastName = "Woo";
@@ -156,16 +162,17 @@ namespace igoryen2.Models {
                 john.Phone = "555-555-5555";
                 john.SenecaId = "055555555";
                 john.UserName = "John";
-                // add john to role "Student"
-                string userJohnPw = "123456";
-                var UserJohnCreate = UserManager.Create(john, userJohnPw);
-                if (UserJohnCreate.Succeeded) {
-                    var addUserJohnToRoleStudentResult = UserManager.AddToRole(john.Id, roleStudent);
-                }
+
                 dc.Students.Add(john);
 
                 // create student jack (6)
                 Student jack = new Student();
+                // add john to role "Student"
+                string userJackPw = "123456";
+                var UserJackCreate = UserManager.Create(jack, userJackPw);
+                if (UserJackCreate.Succeeded) {
+                    var addUserJackToRoleStudentResult = UserManager.AddToRole(jack.Id, roleStudent);
+                }
                 jack.FirstName = "Jack";
                 jack.HomeTown = "Hamilton";
                 jack.LastName = "Smith";
@@ -175,16 +182,17 @@ namespace igoryen2.Models {
                 jack.Phone = "666-666-6666";
                 jack.SenecaId = "066666666";
                 jack.UserName = "Jack";
-                // add john to role "Student"
-                string userJackPw = "123456";
-                var UserJackCreate = UserManager.Create(jack, userJackPw);
-                if (UserJackCreate.Succeeded) {
-                    var addUserJackToRoleStudentResult = UserManager.AddToRole(jack.Id, roleStudent);
-                }
+                
                 dc.Students.Add(jack);
 
                 // create student jill (7)
                 Student jill = new Student();
+                // add john to role "Student"
+                string userJillPw = "123456";
+                var UserJillCreate = UserManager.Create(jill, userJillPw);
+                if (UserJillCreate.Succeeded) {
+                    var addUserJillToRoleStudentResult = UserManager.AddToRole(jill.Id, roleStudent);
+                }
                 jill.FirstName = "Jill";
                 jill.HomeTown = "Hamilton";
                 jill.LastName = "Smith";
@@ -194,17 +202,18 @@ namespace igoryen2.Models {
                 jill.Phone = "777-777-7777";
                 jill.SenecaId = "077777777";
                 jill.UserName = "Jill";
-                // add john to role "Student"
-                string userJillPw = "123456";
-                var UserJillCreate = UserManager.Create(jill, userJillPw);
-                if (UserJillCreate.Succeeded) {
-                    var addUserJillToRoleStudentResult = UserManager.AddToRole(jill.Id, roleStudent);
-                }
+                
                 dc.Students.Add(jill);
 
 
-                // 1 create faculty Mark
+                // 1 create faculty Mark (8)
                 Faculty mark = new Faculty();
+                // add "mark" to role "faculty"
+                string UserMarkPw = "123456";
+                var UserMarkCreate = UserManager.Create(mark, UserMarkPw);
+                if (UserMarkCreate.Succeeded) {
+                    var addUserMarkToRoleFacultyResult = UserManager.AddToRole(mark.Id, roleFaculty);
+                }
                 mark.FirstName = "Mark";
                 mark.HomeTown = "Markham";
                 mark.LastName = "Fernandes";
@@ -214,16 +223,17 @@ namespace igoryen2.Models {
                 mark.Phone = "555-567-6789";
                 mark.SenecaId = "034234678";
                 mark.UserName = "Mark";
-                // add "mark" to role "faculty"
-                string UserMarkPw = "123456";
-                var UserMarkCreate = UserManager.Create(mark, UserMarkPw);
-                if (UserMarkCreate.Succeeded) {
-                    var addUserMarkToRoleFacultyResult = UserManager.AddToRole(mark.Id, roleFaculty);
-                }
+                
                 dc.Faculties.Add(mark);
 
-                // 2 create faculty Ian
+                // 2 create faculty Ian (9)
                 Faculty ian = new Faculty();
+                // add ian to role Faculty
+                string UserIanPw = "123456";
+                var UserIanCreate = UserManager.Create(ian, UserIanPw);
+                if (UserIanCreate.Succeeded) {
+                    var addUserIanToRoleFacultyResult = UserManager.AddToRole(ian.Id, roleFaculty);
+                }
                 ian.FirstName = "Ian";
                 ian.HomeTown = "Mississauga";
                 ian.LastName = "Tipson";
@@ -233,16 +243,17 @@ namespace igoryen2.Models {
                 ian.Phone = "555-567-6790";
                 ian.SenecaId = "034234679";
                 ian.UserName = "Ian";
-                // add ian to role Faculty
-                string UserIanPw = "123456";
-                var UserIanCreate = UserManager.Create(ian, UserIanPw);
-                if (UserIanCreate.Succeeded) {
-                    var addUserIanToRoleFacultyResult = UserManager.AddToRole(ian.Id, roleFaculty);
-                }
+               
                 dc.Faculties.Add(ian);
 
-                // 3 create faculty Ron
+                // 3 create faculty Ron (10)
                 Faculty ron = new Faculty();
+                // add Ron to role Faculty
+                string UserRonPw = "123456";
+                var UserRonCreate = UserManager.Create(ron, UserRonPw);
+                if (UserRonCreate.Succeeded) {
+                    var addUserRonToRoleFacultyResult = UserManager.AddToRole(ron.Id, roleFaculty);
+                }
                 ron.FirstName = "Ronald";
                 ron.HomeTown = "Oshawa";
                 ron.LastName = "Ronaldson";
@@ -252,16 +263,17 @@ namespace igoryen2.Models {
                 ron.Phone = "555-567-6791";
                 ron.SenecaId = "034234680";
                 ron.UserName = "Ron";
-                // add Ron to role Faculty
-                string UserRonPw = "123456";
-                var UserRonCreate = UserManager.Create(ron, UserRonPw);
-                if (UserRonCreate.Succeeded) {
-                    var addUserRonToRoleFacultyResult = UserManager.AddToRole(ron.Id, roleFaculty);
-                }
+                
                 dc.Faculties.Add(ron);
 
-                // 4 create faculty Bill
+                // 4 create faculty Bill (11)
                 Faculty bill = new Faculty();
+                // add Bill to role Faculty
+                string UserBillPw = "123456";
+                var UserBillCreate = UserManager.Create(bill, UserBillPw);
+                if (UserBillCreate.Succeeded) {
+                    var addUserBillToRoleFacultyResult = UserManager.AddToRole(bill.Id, roleFaculty);
+                }
                 bill.FirstName = "Bill";
                 bill.HomeTown = "Vaughn";
                 bill.LastName = "Johnson";
@@ -271,12 +283,7 @@ namespace igoryen2.Models {
                 bill.Phone = "555-567-6791";
                 bill.SenecaId = "034234682";
                 bill.UserName = "Bill";
-                // add Bill to role Faculty
-                string UserBillPw = "123456";
-                var UserBillCreate = UserManager.Create(bill, UserBillPw);
-                if (UserBillCreate.Succeeded) {
-                    var addUserBillToRoleFacultyResult = UserManager.AddToRole(bill.Id, roleFaculty);
-                }
+                
                 dc.Faculties.Add(bill);
 
 
@@ -612,19 +619,14 @@ namespace igoryen2.Models {
                         foreach (var ve in eve.ValidationErrors) {
                             output1.Add("- Property: " + ve.PropertyName + ", Error: " + ve.ErrorMessage);
                         }
-
-                        Console.WriteLine("======================================");
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors) {
-                          Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                              ve.PropertyName, ve.ErrorMessage);
-                        }
-                        
                     }
                 output2 = output1;
                 throw;
             } // catch
+        }
+        protected override void Seed(DataContext dc) {
+            InitializeIdentityForEF(dc);
+            base.Seed(dc);
         }
     }
 }
