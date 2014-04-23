@@ -27,5 +27,7 @@ namespace igoryen2.Models {
         //public DbSet<Message> Messages { get; set; }
         public DbSet<MyUserInfo> MyUserInfo { get; set; }
         public DbSet<Student> Students { get; set; }
+
+        public System.Data.Entity.DbSet<igoryen2.ViewModels.CancellationCreateForHttpGet> CancellationCreateForHttpGets { get; set; }
     }
 }

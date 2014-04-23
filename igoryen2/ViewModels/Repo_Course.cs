@@ -8,7 +8,7 @@ namespace igoryen2.ViewModels {
     public class Repo_Course : RepositoryBase {
 
         public IEnumerable<CourseBase> getListOfCourseBase(string currentUserId) {
-            var courses = dc.Courses.Where(course => course.Students.Any(st => st.Id == currentUserId)).ToList();
+            var courses = dc.Courses.Where(course => course.Faculty.Id == currentUserId).ToList();
             if (courses == null) return null;
             List<CourseBase> lcb = new List<CourseBase>();
             foreach (var item in courses) {

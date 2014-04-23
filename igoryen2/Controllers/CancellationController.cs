@@ -38,14 +38,7 @@ namespace igoryen2.Controllers {
         // GET: /Cancellation/Create
         public ActionResult Create() {
             var currentuser = manager.FindById(User.Identity.GetUserId());
-            var courses = rc.getSelectListOfCourse(currentuser.Id);
-            if (courses == null) {
-                var errors = new ViewModels.VM_Error();
-                errors.ErrorMessages["ExceptionMessage"] = "rc.getSelectListOfCourse(currentuser.Id) returned null";
-                return View("Error", errors);
-            }
             cancellationToCreate.SelectListOfCourse = rc.getSelectListOfCourse(currentuser.Id);
-
             return View(cancellationToCreate);
         }
 
