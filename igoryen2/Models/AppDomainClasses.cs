@@ -34,11 +34,10 @@ namespace igoryen2.Models {
         [Required]
         public string CourseName { get; set; }
         public string RoomNumber { get; set; }
-        public string RunTime { get; set; }
+        public string TimeStart { get; set; }
+        public string TimeEnd { get; set; }
         public Faculty Faculty { get; set; }
         public List<Student> Students { get; set; }
-        public virtual ApplicationUser User { get; set; }
-
     }
 
     public class Faculty : Person {
