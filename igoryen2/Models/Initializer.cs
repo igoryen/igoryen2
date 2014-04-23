@@ -65,29 +65,30 @@ namespace igoryen2.Models {
             //    var addUserIgorToRoleStudentResult = UserManager.AddToRole(UserIgor.Id, roleStudent);
             //}
 
-            var UserMark = new ApplicationUser();
-            string UserMarkPw = "123456";
-            var UserMarkInfo = new MyUserInfo() { FirstName = "Mark", LastName = "Fernandes" };
-            UserMark.UserName = "Mark";
-            UserMark.HomeTown = "Markham";
-            UserMark.MyUserInfo = UserMarkInfo;
-            var UserMarkCreate = UserManager.Create(UserMark, UserMarkPw);
-            if (UserMarkCreate.Succeeded) {
-                var addUserMarkToRoleFacultyResult = UserManager.AddToRole(UserMark.Id, roleFaculty);
-            }
+            //var UserMark = new ApplicationUser();
+            //string UserMarkPw = "123456";
+            //var UserMarkInfo = new MyUserInfo() { FirstName = "Mark", LastName = "Fernandes" };
+            //UserMark.UserName = "Mark";
+            //UserMark.HomeTown = "Markham";
+            //UserMark.MyUserInfo = UserMarkInfo;
+            //var UserMarkCreate = UserManager.Create(UserMark, UserMarkPw);
+            //if (UserMarkCreate.Succeeded) {
+            //    var addUserMarkToRoleFacultyResult = UserManager.AddToRole(UserMark.Id, roleFaculty);
+            //}
 
-            var UserIan = new ApplicationUser();
-            string UserIanPw = "123456";
-            var UserIanInfo = new MyUserInfo() { FirstName = "Ian", LastName = "Tipson" };
-            UserIan.UserName = "Ian";
-            UserIan.HomeTown = "Mississauga";
-            UserIan.MyUserInfo = UserIanInfo;
-            var UserIanCreate = UserManager.Create(UserIan, UserIanPw);
-            if (UserIanCreate.Succeeded) {
-                var addUserIanToRoleFacultyResult = UserManager.AddToRole(UserIan.Id, roleFaculty);
-            }
+            //var UserIan = new ApplicationUser();
+            //string UserIanPw = "123456";
+            //var UserIanInfo = new MyUserInfo() { FirstName = "Ian", LastName = "Tipson" };
+            //UserIan.UserName = "Ian";
+            //UserIan.HomeTown = "Mississauga";
+            //UserIan.MyUserInfo = UserIanInfo;
+            //var UserIanCreate = UserManager.Create(UserIan, UserIanPw);
+            //if (UserIanCreate.Succeeded) {
+            //    var addUserIanToRoleFacultyResult = UserManager.AddToRole(UserIan.Id, roleFaculty);
+            //}
 
             try {
+                // create student igor
                 Student igor = new Student();
                 igor.PersonId = 1;
                 igor.FirstName = "Igor";
@@ -107,7 +108,7 @@ namespace igoryen2.Models {
                 //................................
                 dc.Students.Add(igor);
 
-
+                // create student bob
                 Student bob = new Student();
                 bob.PersonId = 2;
                 bob.FirstName = "Bob";
@@ -127,6 +128,43 @@ namespace igoryen2.Models {
                 //................................
                 dc.Students.Add(bob);
 
+                // create faculty Mark
+                Faculty mark = new Faculty();
+                mark.FirstName = "Mark";
+                mark.HomeTown = "Markham";
+                mark.LastName = "Fernandes";
+                var UserMarkInfo = new MyUserInfo() { FirstName = "Mark", LastName = "Fernandes" };
+                mark.MyUserInfo = UserMarkInfo;
+                mark.PersonId = 10;
+                mark.Phone = "555-567-6789";
+                mark.SenecaId = "034234678";
+                mark.UserName = "Mark";
+                // add "mark" to role "faculty"
+                string UserMarkPw = "123456";
+                var UserMarkCreate = UserManager.Create(mark, UserMarkPw);
+                if (UserMarkCreate.Succeeded) {
+                    var addUserMarkToRoleFacultyResult = UserManager.AddToRole(mark.Id, roleFaculty);
+                }
+                dc.Faculties.Add(mark);
+
+                // create faculty Ian
+                Faculty ian = new Faculty();
+                ian.FirstName = "Ian";
+                ian.HomeTown = "Mississauga";
+                ian.LastName = "Tipson";
+                var UserIanInfo = new MyUserInfo() { FirstName = "Ian", LastName = "Tipson" };
+                ian.MyUserInfo = UserIanInfo;
+                ian.PersonId = 11;
+                ian.Phone = "555-567-6790";
+                ian.SenecaId = "034234679";
+                ian.UserName = "Ian";
+                // add ian to role Faculty
+                string UserIanPw = "123456";
+                var UserIanCreate = UserManager.Create(ian, UserIanPw);
+                if (UserIanCreate.Succeeded) {
+                    var addUserIanToRoleFacultyResult = UserManager.AddToRole(ian.Id, roleFaculty);
+                }
+                dc.Faculties.Add(ian);
 
             }
             catch (DbEntityValidationException e) {
