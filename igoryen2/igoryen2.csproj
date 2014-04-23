@@ -172,6 +172,9 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\RepositoryBase.cs" />
     <Compile Include="ViewModels\Repo_Cancellation.cs" />
+    <Compile Include="ViewModels\Repo_Course.cs" />
+    <Compile Include="ViewModels\VM_Cancellation.cs" />
+    <Compile Include="ViewModels\VM_Course.cs" />
     <Compile Include="ViewModels\VM_Error.cs" />
   </ItemGroup>
   <ItemGroup>

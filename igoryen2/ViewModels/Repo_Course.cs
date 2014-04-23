@@ -23,8 +23,15 @@ namespace igoryen2.ViewModels {
         }
 
         public SelectList getSelectListOfCourse(string currentUserId) {
-            IEnumerable<CourseBase> cbs = getListOfCourseBase(currentUserId);
-            SelectList sl = new SelectList(cbs, "CourseId", "CourseCode");
+            var lcb = new List<CourseBase>();
+            lcb.Add(new CourseBase {
+                CourseCode = "Select a course code",
+                CourseId = -1
+            });
+            foreach (var item in getListOfCourseBase(currentUserId)) {
+                lcb.Add(item);
+            }
+            SelectList sl = new SelectList(lcb.ToList(), "CourseId", "CourseCode");
             return sl;
         }
 
