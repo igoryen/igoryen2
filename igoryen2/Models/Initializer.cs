@@ -43,27 +43,27 @@ namespace igoryen2.Models {
                 var addUserAdminToRoleAdminResult = UserManager.AddToRole(UserAdmin.Id, roleAdmin);
             }
 
-            var UserBob = new ApplicationUser();
-            string userBobPw = "123456";
-            var userBobInfo = new MyUserInfo() { FirstName = "Bob", LastName = "White" };
-            UserBob.UserName = "Bob";
-            UserBob.HomeTown = "Sochi";
-            UserBob.MyUserInfo = userBobInfo;
-            var UserBobCreate = UserManager.Create(UserBob, userBobPw);
-            if (UserBobCreate.Succeeded) {
-                var addUserBobToRoleStudentResult = UserManager.AddToRole(UserBob.Id, roleStudent);
-            }
+            //var UserBob = new ApplicationUser();
+            //string userBobPw = "123456";
+            //var userBobInfo = new MyUserInfo() { FirstName = "Bob", LastName = "White" };
+            //UserBob.UserName = "Bob";
+            //UserBob.HomeTown = "Sochi";
+            //UserBob.MyUserInfo = userBobInfo;
+            //var UserBobCreate = UserManager.Create(UserBob, userBobPw);
+            //if (UserBobCreate.Succeeded) {
+            //    var addUserBobToRoleStudentResult = UserManager.AddToRole(UserBob.Id, roleStudent);
+            //}
 
-            var UserIgor = new ApplicationUser();
-            string userIgorPw = "123456";
-            var userIgorInfo = new MyUserInfo() { FirstName = "Igor", LastName = "Entaltsev" };
-            UserIgor.UserName = "Igor";
-            UserIgor.HomeTown = "Sochi";
-            UserIgor.MyUserInfo = userIgorInfo;
-            var UserIgorCreate = UserManager.Create(UserIgor, userIgorPw);
-            if (UserIgorCreate.Succeeded) {
-                var addUserIgorToRoleStudentResult = UserManager.AddToRole(UserIgor.Id, roleStudent);
-            }
+            //var UserIgor = new ApplicationUser();
+            //string userIgorPw = "123456";
+            //var userIgorInfo = new MyUserInfo() { FirstName = "Igor", LastName = "Entaltsev" };
+            //UserIgor.UserName = "Igor";
+            //UserIgor.HomeTown = "Sochi";
+            //UserIgor.MyUserInfo = userIgorInfo;
+            //var UserIgorCreate = UserManager.Create(UserIgor, userIgorPw);
+            //if (UserIgorCreate.Succeeded) {
+            //    var addUserIgorToRoleStudentResult = UserManager.AddToRole(UserIgor.Id, roleStudent);
+            //}
 
             var UserMark = new ApplicationUser();
             string UserMarkPw = "123456";
@@ -94,8 +94,19 @@ namespace igoryen2.Models {
                 igor.LastName = "Entaltsev";
                 igor.Phone = "555-555-5555";
                 igor.SenecaId = "011111111";
-                igor.UserName = "ientaltsev2";
+                igor.UserName = "Igor";
+                igor.HomeTown = "Sochi";
+                //................................
+                string userIgorPw = "123456";
+                var userIgorInfo = new MyUserInfo() { FirstName = "Igor", LastName = "Entaltsev" };
+                igor.MyUserInfo = userIgorInfo;
+                var UserIgorCreate = UserManager.Create(igor, userIgorPw);
+                if (UserIgorCreate.Succeeded) {
+                    var addUserIgorToRoleStudentResult = UserManager.AddToRole(igor.Id, roleStudent);
+                }
+                //................................
                 dc.Students.Add(igor);
+
 
                 Student bob = new Student();
                 bob.PersonId = 2;
@@ -103,7 +114,17 @@ namespace igoryen2.Models {
                 bob.LastName = "White";
                 bob.Phone = "777-777-7777";
                 bob.SenecaId = "022222222";
-                bob.UserName = "bwhite";
+                bob.UserName = "Bob";
+                bob.HomeTown = "Mishawaka";
+                //................................
+                string userBobPw = "123456";
+                var userBobInfo = new MyUserInfo() { FirstName = "Bob", LastName = "White" };
+                bob.MyUserInfo = userBobInfo;
+                var UserBobCreate = UserManager.Create(bob, userBobPw);
+                if (UserBobCreate.Succeeded) {
+                    var addUserBobToRoleStudentResult = UserManager.AddToRole(bob.Id, roleStudent);
+                }
+                //................................
                 dc.Students.Add(bob);
 
 
