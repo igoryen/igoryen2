@@ -23,12 +23,12 @@ namespace igoryen2.Models {
 
             string roleStudent = "Student";
             if (!RoleManager.RoleExists(roleStudent)) {
-                var role2CreateResult = RoleManager.Create(new IdentityRole(roleStudent));
+                var roleStudentCreateResult = RoleManager.Create(new IdentityRole(roleStudent));
             }
 
             string roleFaculty = "Faculty";
             if (!RoleManager.RoleExists(roleFaculty)) {
-                var role3CreateResult = RoleManager.Create(new IdentityRole(roleFaculty));
+                var roleFacultyCreateResult = RoleManager.Create(new IdentityRole(roleFaculty));
             }
 
             var UserAdmin = new ApplicationUser();
@@ -88,6 +88,24 @@ namespace igoryen2.Models {
             }
 
             try {
+                Student igor = new Student();
+                igor.PersonId = 1;
+                igor.FirstName = "Igor";
+                igor.LastName = "Entaltsev";
+                igor.Phone = "555-555-5555";
+                igor.SenecaId = "011111111";
+                igor.UserName = "ientaltsev2";
+                dc.Students.Add(igor);
+
+                Student bob = new Student();
+                bob.PersonId = 2;
+                bob.FirstName = "Bob";
+                bob.LastName = "White";
+                bob.Phone = "777-777-7777";
+                bob.SenecaId = "022222222";
+                bob.UserName = "bwhite";
+                dc.Students.Add(bob);
+
 
             }
             catch (DbEntityValidationException e) {
