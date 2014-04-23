@@ -90,42 +90,40 @@ namespace igoryen2.Models {
             try {
                 // create student igor
                 Student igor = new Student();
-                igor.PersonId = 1;
                 igor.FirstName = "Igor";
+                igor.HomeTown = "Sochi";
                 igor.LastName = "Entaltsev";
+                var userIgorInfo = new MyUserInfo() { FirstName = "Igor", LastName = "Entaltsev" };
+                igor.MyUserInfo = userIgorInfo;
+                igor.PersonId = 1;
                 igor.Phone = "555-555-5555";
                 igor.SenecaId = "011111111";
                 igor.UserName = "Igor";
-                igor.HomeTown = "Sochi";
-                //................................
+                // add igor to role "Student"
                 string userIgorPw = "123456";
-                var userIgorInfo = new MyUserInfo() { FirstName = "Igor", LastName = "Entaltsev" };
-                igor.MyUserInfo = userIgorInfo;
                 var UserIgorCreate = UserManager.Create(igor, userIgorPw);
                 if (UserIgorCreate.Succeeded) {
                     var addUserIgorToRoleStudentResult = UserManager.AddToRole(igor.Id, roleStudent);
                 }
-                //................................
                 dc.Students.Add(igor);
 
                 // create student bob
                 Student bob = new Student();
-                bob.PersonId = 2;
                 bob.FirstName = "Bob";
+                bob.HomeTown = "Mishawaka";
                 bob.LastName = "White";
+                var userBobInfo = new MyUserInfo() { FirstName = "Bob", LastName = "White" };
+                bob.MyUserInfo = userBobInfo;
+                bob.PersonId = 2;
                 bob.Phone = "777-777-7777";
                 bob.SenecaId = "022222222";
                 bob.UserName = "Bob";
-                bob.HomeTown = "Mishawaka";
-                //................................
+                // add bob to role "Student"
                 string userBobPw = "123456";
-                var userBobInfo = new MyUserInfo() { FirstName = "Bob", LastName = "White" };
-                bob.MyUserInfo = userBobInfo;
                 var UserBobCreate = UserManager.Create(bob, userBobPw);
                 if (UserBobCreate.Succeeded) {
                     var addUserBobToRoleStudentResult = UserManager.AddToRole(bob.Id, roleStudent);
                 }
-                //................................
                 dc.Students.Add(bob);
 
                 // create faculty Mark
