@@ -5,5 +5,6 @@ using System.Web;
 
 namespace igoryen2.ViewModels {
     public class Repo_Cancellation {
+
     }
 }

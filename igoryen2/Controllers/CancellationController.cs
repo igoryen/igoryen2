@@ -7,10 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using igoryen2.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace igoryen2.Controllers {
     public class CancellationController : Controller {
         private DataContext db = new DataContext();
+        private UserManager<ApplicationUser> manager;
 
         // GET: /Cancellation/
         public ActionResult Index() {
@@ -102,6 +105,11 @@ namespace igoryen2.Controllers {
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public CancellationController() {
+            db = new DataContext();
+            manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
     }
 }
