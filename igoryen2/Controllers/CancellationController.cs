@@ -9,11 +9,13 @@ using System.Web.Mvc;
 using igoryen2.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using igoryen2.ViewModels;
 
 namespace igoryen2.Controllers {
     public class CancellationController : Controller {
         private DataContext db = new DataContext();
         private UserManager<ApplicationUser> manager;
+        private Repo_Course rc = new Repo_Course();
 
         // GET: /Cancellation/
         public ActionResult Index() {
@@ -34,7 +36,16 @@ namespace igoryen2.Controllers {
 
         // GET: /Cancellation/Create
         public ActionResult Create() {
-            return View();
+            var currentuser = manager.FindById(User.Identity.GetUserId());
+            var courses = rc.getSelectListOfCourse(currentuser.Id);
+            if (courses == null) {
+                var errors = new ViewModels.VM_Error();
+                errors.ErrorMessages["ExceptionMessage"] = "rc.getSelectListOfCourse(currentuser.Id) returned null";
+                return View("Error", errors);
+            }
+            //cancellationToCreate.CourseSelectList = rc.getCourseSelectList(currentuser.Id);
+
+            return View(cancellationToCreate));
         }
 
         // POST: /Cancellation/Create
