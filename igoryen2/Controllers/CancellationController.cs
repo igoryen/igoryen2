@@ -16,6 +16,7 @@ namespace igoryen2.Controllers {
         private DataContext db = new DataContext();
         private UserManager<ApplicationUser> manager;
         private Repo_Course rc = new Repo_Course();
+        static CancellationCreateForHttpGet cancellationToCreate = new CancellationCreateForHttpGet();
 
         // GET: /Cancellation/
         public ActionResult Index() {
@@ -43,9 +44,9 @@ namespace igoryen2.Controllers {
                 errors.ErrorMessages["ExceptionMessage"] = "rc.getSelectListOfCourse(currentuser.Id) returned null";
                 return View("Error", errors);
             }
-            //cancellationToCreate.CourseSelectList = rc.getCourseSelectList(currentuser.Id);
+            cancellationToCreate.SelectListOfCourse = rc.getSelectListOfCourse(currentuser.Id);
 
-            return View(cancellationToCreate));
+            return View(cancellationToCreate);
         }
 
         // POST: /Cancellation/Create

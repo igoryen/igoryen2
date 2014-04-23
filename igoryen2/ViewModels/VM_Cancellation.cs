@@ -11,7 +11,7 @@ namespace igoryen2.ViewModels {
     public class CancellationCreateForHttpGet {
         [Key]
         public int CancellationId { get; set; }
-        public SelectList CourseSelectList { get; set; }
+        public SelectList SelectListOfCourse { get; set; }
         [Display(Name = "Date :)")]
         public string Date { get; set; }
         public string Message { get; set; }
