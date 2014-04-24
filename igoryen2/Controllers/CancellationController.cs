@@ -10,6 +10,7 @@ using igoryen2.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using igoryen2.ViewModels;
+using System.Data.Entity.Validation;
 
 namespace igoryen2.Controllers {
     public class CancellationController : Controller {
@@ -44,7 +45,7 @@ namespace igoryen2.Controllers {
             return View(cancellationToCreate);
         }
 
-        // v4
+        // v5
         // POST: /Cancellation/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -54,16 +55,43 @@ namespace igoryen2.Controllers {
             var currentUser = manager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid && newItem.CourseId != -1) {
                 var cancellation = rcc.buildCancellation(newItem);
-                cancellation.Faculty = db.Faculties.FirstOrDefault(f => f.Id == currentUser.Id);
+                cancellation.Faculty = db.Faculties.Include("Courses").FirstOrDefault(f => f.Id == currentUser.Id);
                 db.Cancellations.Add(cancellation);
-                db.SaveChanges();
+                try {
+                    db.SaveChanges();
+                }
+                //---------------------------------------
+                catch (DbEntityValidationException e) {
+                    //----------------------------------------------------------
+                    List<string> output1 = new List<string>();
+                    List<string> output2 = new List<string>();
+                    foreach (var eve in e.EntityValidationErrors) {
+                        output1.Add("Entity of type " + eve.Entry.Entity.GetType().Name + " in state " + eve.Entry.State + " has the following validation errors:");
+                        foreach (var ve in eve.ValidationErrors) {
+                            output1.Add("- Property: " + ve.PropertyName + ", Error: " + ve.ErrorMessage);
+                        } // foreach()
+
+                        /*
+                        Console.WriteLine("======================================");
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors) {
+                          Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                              ve.PropertyName, ve.ErrorMessage);
+                        }
+                         */
+                    } // foreach
+                    output2 = output1;
+                    throw;
+                } // catch
+                //---------------------------------------
                 var createdCancellation = rcc.getCancellation(cancellation.CancellationId);
                 if (createdCancellation == null) {
                     return View("Error", vme.GetErrorModel(null, ModelState));
                 }
                 else {
-                    cancellationToCreate.Clear();
-                    return RedirectToAction("Details", new { CancellationId = createdCancellation.CancellationId });
+                    //cancellationToCreate.Clear();
+                    return RedirectToAction("Details", new { id = createdCancellation.CancellationId });
                 }
             }
             else {

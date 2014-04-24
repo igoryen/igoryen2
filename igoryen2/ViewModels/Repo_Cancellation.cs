@@ -10,21 +10,23 @@ namespace igoryen2.ViewModels {
         private DataContext db = new DataContext();
 
 
-        // v2
+        // v3
         public Cancellation buildCancellation(CancellationCreateForHttpPost newItem) {
             Cancellation cancellation = new Cancellation();
             cancellation.CancellationId = newItem.CancellationId;
-            cancellation.Course = db.Courses.Find(newItem.CourseId);
+            Course course = new Course();
+            course = db.Courses.FirstOrDefault(c => c.CourseId == newItem.CourseId);
+            cancellation.CourseId = course.CourseId;
             cancellation.Date = newItem.Date;
             cancellation.Message = newItem.Message;
 
             return cancellation;
         }
 
-        // v1
+        // v2
         public Cancellation getCancellation(int? CancellationId) {
             if (CancellationId == null) return null;
-            var cancellation = db.Cancellations.SingleOrDefault(c => c.CancellationId == CancellationId);
+            var cancellation = db.Cancellations.Include("Faculty").SingleOrDefault(c => c.CancellationId == CancellationId);
             if (cancellation == null) return null;
 
             return cancellation;

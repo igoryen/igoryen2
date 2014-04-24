@@ -7,10 +7,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace igoryen2.Models {
 
+    //v2
     public class Cancellation {
         public int CancellationId { get; set; }
         public Faculty Faculty { get; set; }
-        public Course Course { get; set; }
+        public int CourseId { get; set; }
         public string Date { get; set; }
         public string Message { get; set; }
     }
