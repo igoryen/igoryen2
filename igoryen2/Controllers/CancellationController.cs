@@ -45,7 +45,7 @@ namespace igoryen2.Controllers {
             return View(cancellationToCreate);
         }
 
-        // v5
+        // v6
         // POST: /Cancellation/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -55,7 +55,7 @@ namespace igoryen2.Controllers {
             var currentUser = manager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid && newItem.CourseId != -1) {
                 var cancellation = rcc.buildCancellation(newItem);
-                cancellation.Faculty = db.Faculties.Include("Courses").FirstOrDefault(f => f.Id == currentUser.Id);
+                cancellation.Creator = currentUser;
                 db.Cancellations.Add(cancellation);
                 try {
                     db.SaveChanges();

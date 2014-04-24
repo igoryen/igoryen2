@@ -10,23 +10,36 @@ namespace igoryen2.ViewModels {
         private DataContext db = new DataContext();
 
 
-        // v3
+        // v4
         public Cancellation buildCancellation(CancellationCreateForHttpPost newItem) {
+
             Cancellation cancellation = new Cancellation();
             cancellation.CancellationId = newItem.CancellationId;
             Course course = new Course();
-            course = db.Courses.FirstOrDefault(c => c.CourseId == newItem.CourseId);
+            course = db.Courses.AsNoTracking().Include("Students").FirstOrDefault(c => c.CourseId == newItem.CourseId);
             cancellation.CourseId = course.CourseId;
             cancellation.Date = newItem.Date;
             cancellation.Message = newItem.Message;
+            cancellation.Students = new List<StudentBase>();
+
+            List<StudentBase> lsb = new List<StudentBase>();
+            foreach (var student in course.Students) {
+                StudentBase sb = new StudentBase();
+                sb.Id = student.Id;
+                sb.FirstName = student.FirstName;
+                sb.LastName = student.LastName;
+                sb.SenecaId = student.SenecaId;
+                lsb.Add(sb);
+            }
+            cancellation.Students = lsb;
 
             return cancellation;
         }
 
-        // v2
+        // v3
         public Cancellation getCancellation(int? CancellationId) {
             if (CancellationId == null) return null;
-            var cancellation = db.Cancellations.Include("Faculty").SingleOrDefault(c => c.CancellationId == CancellationId);
+            var cancellation = db.Cancellations.Include("Students").SingleOrDefault(c => c.CancellationId == CancellationId);
             if (cancellation == null) return null;
 
             return cancellation;

@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using igoryen2.ViewModels;
 
 
 namespace igoryen2.Models {
 
-    //v2
+    //v3
     public class Cancellation {
         public int CancellationId { get; set; }
-        public Faculty Faculty { get; set; }
+        public ApplicationUser Creator { get; set; }
         public int CourseId { get; set; }
         public string Date { get; set; }
         public string Message { get; set; }
+        public List<StudentBase> Students { get; set; }
     }
 
     public class ComMethod {

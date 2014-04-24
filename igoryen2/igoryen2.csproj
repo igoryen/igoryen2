@@ -176,6 +176,7 @@
     <Compile Include="ViewModels\VM_Cancellation.cs" />
     <Compile Include="ViewModels\VM_Course.cs" />
     <Compile Include="ViewModels\VM_Error.cs" />
+    <Compile Include="ViewModels\VM_Student.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
