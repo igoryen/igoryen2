@@ -44,16 +44,17 @@ namespace igoryen2.Controllers {
             return View(cancellationToCreate);
         }
 
-        // v3
+        // v4
         // POST: /Cancellation/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CancellationCreateForHttpPost newItem) {
-            var currentuser = manager.FindById(User.Identity.GetUserId());
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid && newItem.CourseId != -1) {
-                var cancellation = rcc.buildCancellation(newItem, currentuser);
+                var cancellation = rcc.buildCancellation(newItem);
+                cancellation.Faculty = db.Faculties.FirstOrDefault(f => f.Id == currentUser.Id);
                 db.Cancellations.Add(cancellation);
                 db.SaveChanges();
                 var createdCancellation = rcc.getCancellation(cancellation.CancellationId);
