@@ -22,5 +22,14 @@ namespace igoryen2.ViewModels {
             return cancellation;
         }
 
+        // v1
+        public Cancellation getCancellation(int? CancellationId) {
+            if (CancellationId == null) return null;
+            var cancellation = db.Cancellations.SingleOrDefault(c => c.CancellationId == CancellationId);
+            if (cancellation == null) return null;
+
+            return cancellation;
+        }
+
     }
 }
