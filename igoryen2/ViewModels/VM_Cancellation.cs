@@ -21,4 +21,15 @@ namespace igoryen2.ViewModels {
         }
     }
 
+    public class CancellationCreateForHttpPost {
+        [Key]
+        public int CancellationId { get; set; }
+        [Required]
+        public string Message { get; set; }
+        [Required]
+        public string Date { get; set; }
+        [Required(ErrorMessage = "Select a course")]
+        public int CourseId { get; set; }
+    }
+
 }
