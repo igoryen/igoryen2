@@ -17,6 +17,8 @@ namespace igoryen2.Controllers {
         private UserManager<ApplicationUser> manager;
         private Repo_Course rc = new Repo_Course();
         static CancellationCreateForHttpGet cancellationToCreate = new CancellationCreateForHttpGet();
+        private Repo_Cancellation rcc = new Repo_Cancellation();
+        private VM_Error vme = new VM_Error();
 
         // GET: /Cancellation/
         public ActionResult Index() {
@@ -48,15 +50,35 @@ namespace igoryen2.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CancellationId,Date,Message")] Cancellation cancellation) {
-            if (ModelState.IsValid) {
+        public ActionResult Create(CancellationCreateForHttpPost newItem) {
+            var currentuser = manager.FindById(User.Identity.GetUserId());
+            if (ModelState.IsValid && newItem.CourseId != -1) {
+                var cancellation = rcc.createCancellation(newItem);
+                cancellation.User = new ApplicationUser();
+                cancellation.User = currentuser;
                 db.Cancellations.Add(cancellation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var createdCancellation = rcc.getCancellation(cancellation.CancellationId);
+                if (createdCancellation == null) {
+                    return View("Error", vme.GetErrorModel(null, ModelState));
+                }
+                else {
+                    cancellationToCreate.Clear();
+                    return RedirectToAction("Details", new { CancellationId = createdCancellation.CancellationId });
+                }
             }
+            else {
+                if (newItem.CourseId == -1)
+                    ModelState.AddModelError("CourseSelectList", "Select a Course");
+                //if (newItem.GenreId == null) ModelState.AddModelError("GenreSelectList", "Select One or More Genres");
 
-            return View(cancellation);
+                cancellationToCreate.Date = newItem.Date;
+                cancellationToCreate.Message = newItem.Message;
+
+                return View(cancellationToCreate);
+            }
         }
+
 
         // GET: /Cancellation/Edit/5
         public ActionResult Edit(int? id) {
