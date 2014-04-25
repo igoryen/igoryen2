@@ -10,13 +10,14 @@ namespace igoryen2.ViewModels {
         private DataContext db = new DataContext();
 
 
-        // v6
+        // v7
         public Cancellation buildCancellation(CancellationCreateForHttpPost newItem) {
 
             Cancellation cancellation = new Cancellation();
             cancellation.CancellationId = newItem.CancellationId;
             Course course = new Course();
             course = db.Courses.AsNoTracking().Include("Students").FirstOrDefault(c => c.CourseId == newItem.CourseId);
+            cancellation.CourseCode = course.CourseCode;
             cancellation.CourseId = course.CourseId;
             cancellation.Date = newItem.Date;
             cancellation.Message = newItem.Message;
