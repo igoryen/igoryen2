@@ -10,7 +10,7 @@ namespace igoryen2.ViewModels {
         private DataContext db = new DataContext();
 
 
-        // v4
+        // v5
         public Cancellation buildCancellation(CancellationCreateForHttpPost newItem) {
 
             Cancellation cancellation = new Cancellation();
@@ -26,8 +26,8 @@ namespace igoryen2.ViewModels {
             foreach (var student in course.Students) {
                 StudentBase sb = new StudentBase();
                 sb.Id = student.Id;
-                sb.FirstName = student.FirstName;
-                sb.LastName = student.LastName;
+                sb.FirstName = student.PersonFirstName;
+                sb.LastName = student.PersonLastName;
                 sb.SenecaId = student.SenecaId;
                 lsb.Add(sb);
             }

@@ -11,6 +11,7 @@ using System.Data.Entity.Validation;
 namespace igoryen2.Models {
     public class Initializer : DropCreateDatabaseAlways<DataContext> {
 
+        // v5
         private void InitializeIdentityForEF(DataContext dc) {
 
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dc));
@@ -88,204 +89,193 @@ namespace igoryen2.Models {
             try {
                 // create student igor (3)
                 Student igor = new Student();
-                // add igor to role "Student"
                 string userIgorPw = "123456";
+                igor.PersonFirstName = "Igor";
+                igor.HomeTown = "Sochi";
+                igor.PersonLastName = "Entaltsev";
+                var userIgorInfo = new MyUserInfo() { FirstName = "Igor", LastName = "Entaltsev" };
+                igor.MyUserInfo = userIgorInfo;
+                igor.PersonId = 3;
+                igor.PersonPhone = "555-555-5555";
+                igor.SenecaId = "011111111";
+                igor.UserName = "Igor";
+                dc.Students.Add(igor);
+                // Make "igor" a user and add him to role "student"
                 var UserIgorCreate = UserManager.Create(igor, userIgorPw);
                 if (UserIgorCreate.Succeeded) {
                     var addUserIgorToRoleStudentResult = UserManager.AddToRole(igor.Id, roleStudent);
                 }
-                igor.FirstName = "Igor";
-                igor.HomeTown = "Sochi";
-                igor.LastName = "Entaltsev";
-                var userIgorInfo = new MyUserInfo() { FirstName = "Igor", LastName = "Entaltsev" };
-                igor.MyUserInfo = userIgorInfo;
-                igor.PersonId = 3;
-                igor.Phone = "555-555-5555";
-                igor.SenecaId = "011111111";
-                igor.UserName = "Igor";
-                 dc.Students.Add(igor);
-
                 // create student bob (2)
                 Student bob = new Student();
-                // add bob to role "Student"
                 string userBobPw = "123456";
+                bob.PersonFirstName = "Bob";
+                bob.HomeTown = "Mishawaka";
+                bob.PersonLastName = "White";
+                var userBobInfo = new MyUserInfo() { FirstName = "Bob", LastName = "White" };
+                bob.MyUserInfo = userBobInfo;
+                bob.PersonId = 2;
+                bob.PersonPhone = "777-777-7777";
+                bob.SenecaId = "022222222";
+                bob.UserName = "Bob";
+                // Make "bob" a user and add him to role "student"
+                dc.Students.Add(bob);
                 var UserBobCreate = UserManager.Create(bob, userBobPw);
                 if (UserBobCreate.Succeeded) {
                     var addUserBobToRoleStudentResult = UserManager.AddToRole(bob.Id, roleStudent);
                 }
-                bob.FirstName = "Bob";
-                bob.HomeTown = "Mishawaka";
-                bob.LastName = "White";
-                var userBobInfo = new MyUserInfo() { FirstName = "Bob", LastName = "White" };
-                bob.MyUserInfo = userBobInfo;
-                bob.PersonId = 2;
-                bob.Phone = "777-777-7777";
-                bob.SenecaId = "022222222";
-                bob.UserName = "Bob";
-
-                dc.Students.Add(bob);
-
                 // create student wei (4)
                 Student wei = new Student();
-                // add bob to role "Student"
                 string userWeiPw = "123456";
+                wei.PersonFirstName = "Wei";
+                wei.HomeTown = "Welland";
+                wei.PersonLastName = "Chen";
+                var userWeiInfo = new MyUserInfo() { FirstName = "Wei", LastName = "Chen" };
+                wei.MyUserInfo = userWeiInfo;
+                wei.PersonId = 4;
+                wei.PersonPhone = "444-444-4444";
+                wei.SenecaId = "044444444";
+                wei.UserName = "Wei";
+                dc.Students.Add(wei);
+                // Make "wei" a user and add him to role "student"
                 var UserWeiCreate = UserManager.Create(wei, userWeiPw);
                 if (UserWeiCreate.Succeeded) {
                     var addUserWeiToRoleStudentResult = UserManager.AddToRole(wei.Id, roleStudent);
                 }
-                wei.FirstName = "Wei";
-                wei.HomeTown = "Welland";
-                wei.LastName = "Chen";
-                var userWeiInfo = new MyUserInfo() { FirstName = "Wei", LastName = "Chen" };
-                wei.MyUserInfo = userWeiInfo;
-                wei.PersonId = 4;
-                wei.Phone = "444-444-4444";
-                wei.SenecaId = "044444444";
-                wei.UserName = "Wei";
-
-                dc.Students.Add(wei);
 
                 // create student john (5)
                 Student john = new Student();
-                // add john to role "Student"
                 string userJohnPw = "123456";
+                john.PersonFirstName = "John";
+                john.HomeTown = "Belleville";
+                john.PersonLastName = "Woo";
+                var userJohnInfo = new MyUserInfo() { FirstName = "John", LastName = "Woo" };
+                john.MyUserInfo = userJohnInfo;
+                john.PersonId = 5;
+                john.PersonPhone = "555-555-5555";
+                john.SenecaId = "055555555";
+                john.UserName = "John";
+                dc.Students.Add(john);
+                // Make "john" a user and add him to role "student"
                 var UserJohnCreate = UserManager.Create(john, userJohnPw);
                 if (UserJohnCreate.Succeeded) {
                     var addUserJohnToRoleStudentResult = UserManager.AddToRole(john.Id, roleStudent);
                 }
-                john.FirstName = "John";
-                john.HomeTown = "Belleville";
-                john.LastName = "Woo";
-                var userJohnInfo = new MyUserInfo() { FirstName = "John", LastName = "Woo" };
-                john.MyUserInfo = userJohnInfo;
-                john.PersonId = 5;
-                john.Phone = "555-555-5555";
-                john.SenecaId = "055555555";
-                john.UserName = "John";
-
-                dc.Students.Add(john);
 
                 // create student jack (6)
                 Student jack = new Student();
-                // add john to role "Student"
                 string userJackPw = "123456";
+                jack.PersonFirstName = "Jack";
+                jack.HomeTown = "Hamilton";
+                jack.PersonLastName = "Smith";
+                var userJackInfo = new MyUserInfo() { FirstName = "Jack", LastName = "Smith" };
+                jack.MyUserInfo = userJackInfo;
+                jack.PersonId = 6;
+                jack.PersonPhone = "666-666-6666";
+                jack.SenecaId = "066666666";
+                jack.UserName = "Jack";
+                dc.Students.Add(jack);
+                // Make "jack" a user and add him to role "student"
                 var UserJackCreate = UserManager.Create(jack, userJackPw);
                 if (UserJackCreate.Succeeded) {
                     var addUserJackToRoleStudentResult = UserManager.AddToRole(jack.Id, roleStudent);
                 }
-                jack.FirstName = "Jack";
-                jack.HomeTown = "Hamilton";
-                jack.LastName = "Smith";
-                var userJackInfo = new MyUserInfo() { FirstName = "Jack", LastName = "Smith" };
-                jack.MyUserInfo = userJackInfo;
-                jack.PersonId = 6;
-                jack.Phone = "666-666-6666";
-                jack.SenecaId = "066666666";
-                jack.UserName = "Jack";
-                
-                dc.Students.Add(jack);
 
                 // create student jill (7)
                 Student jill = new Student();
-                // add john to role "Student"
                 string userJillPw = "123456";
-                var UserJillCreate = UserManager.Create(jill, userJillPw);
-                if (UserJillCreate.Succeeded) {
-                    var addUserJillToRoleStudentResult = UserManager.AddToRole(jill.Id, roleStudent);
-                }
-                jill.FirstName = "Jill";
+                jill.PersonFirstName = "Jill";
                 jill.HomeTown = "Hamilton";
-                jill.LastName = "Smith";
+                jill.PersonLastName = "Smith";
                 var userJillInfo = new MyUserInfo() { FirstName = "Jill", LastName = "Smith" };
                 jill.MyUserInfo = userJillInfo;
                 jill.PersonId = 7;
-                jill.Phone = "777-777-7777";
+                jill.PersonPhone = "777-777-7777";
                 jill.SenecaId = "077777777";
                 jill.UserName = "Jill";
                 
                 dc.Students.Add(jill);
+                // Make "jill" a user and add her to role "student"
+                var UserJillCreate = UserManager.Create(jill, userJillPw);
+                if (UserJillCreate.Succeeded) {
+                    var addUserJillToRoleStudentResult = UserManager.AddToRole(jill.Id, roleStudent);
+                }
 
 
                 // 1 create faculty Mark (8)
                 Faculty mark = new Faculty();
-                // add "mark" to role "faculty"
+                mark.SenecaId = "034234678";
+                mark.UserName = "Mark";
+                mark.PersonFirstName = "Mark";
+                mark.PersonLastName = "Fernandes";
+                mark.PersonPhone = "555-567-6789";
                 string UserMarkPw = "123456";
+                mark.HomeTown = "Markham";
+                var UserMarkInfo = new MyUserInfo() { FirstName = "Mark", LastName = "Fernandes" };
+                mark.MyUserInfo = UserMarkInfo;
+                mark.PersonId = 8;
+                dc.Faculties.Add(mark);
+                // Make "mark" a user and add him to role "faculty"
                 var UserMarkCreate = UserManager.Create(mark, UserMarkPw);
                 if (UserMarkCreate.Succeeded) {
                     var addUserMarkToRoleFacultyResult = UserManager.AddToRole(mark.Id, roleFaculty);
                 }
-                mark.FirstName = "Mark";
-                mark.HomeTown = "Markham";
-                mark.LastName = "Fernandes";
-                var UserMarkInfo = new MyUserInfo() { FirstName = "Mark", LastName = "Fernandes" };
-                mark.MyUserInfo = UserMarkInfo;
-                mark.PersonId = 8;
-                mark.Phone = "555-567-6789";
-                mark.SenecaId = "034234678";
-                mark.UserName = "Mark";
-                
-                dc.Faculties.Add(mark);
 
                 // 2 create faculty Ian (9)
                 Faculty ian = new Faculty();
-                // add ian to role Faculty
                 string UserIanPw = "123456";
+                ian.PersonFirstName = "Ian";
+                ian.HomeTown = "Mississauga";
+                ian.PersonLastName = "Tipson";
+                var UserIanInfo = new MyUserInfo() { FirstName = "Ian", LastName = "Tipson" };
+                ian.MyUserInfo = UserIanInfo;
+                ian.PersonId = 9;
+                ian.PersonPhone = "555-567-6790";
+                ian.SenecaId = "034234679";
+                ian.UserName = "Ian";
+                dc.Faculties.Add(ian);
+                // Make "ian" a user and add him to role "faculty"
                 var UserIanCreate = UserManager.Create(ian, UserIanPw);
                 if (UserIanCreate.Succeeded) {
                     var addUserIanToRoleFacultyResult = UserManager.AddToRole(ian.Id, roleFaculty);
                 }
-                ian.FirstName = "Ian";
-                ian.HomeTown = "Mississauga";
-                ian.LastName = "Tipson";
-                var UserIanInfo = new MyUserInfo() { FirstName = "Ian", LastName = "Tipson" };
-                ian.MyUserInfo = UserIanInfo;
-                ian.PersonId = 9;
-                ian.Phone = "555-567-6790";
-                ian.SenecaId = "034234679";
-                ian.UserName = "Ian";
-               
-                dc.Faculties.Add(ian);
 
                 // 3 create faculty Ron (10)
                 Faculty ron = new Faculty();
-                // add Ron to role Faculty
                 string UserRonPw = "123456";
+                ron.PersonFirstName = "Ronald";
+                ron.HomeTown = "Oshawa";
+                ron.PersonLastName = "Ronaldson";
+                var UserRonInfo = new MyUserInfo() { FirstName = "Ronald", LastName = "Ronaldson" };
+                ron.MyUserInfo = UserRonInfo;
+                ron.PersonId = 10;
+                ron.PersonPhone = "555-567-6791";
+                ron.SenecaId = "034234680";
+                ron.UserName = "Ron";
+                dc.Faculties.Add(ron);
+                // Make "ron" a user and add him to role "faculty"
                 var UserRonCreate = UserManager.Create(ron, UserRonPw);
                 if (UserRonCreate.Succeeded) {
                     var addUserRonToRoleFacultyResult = UserManager.AddToRole(ron.Id, roleFaculty);
                 }
-                ron.FirstName = "Ronald";
-                ron.HomeTown = "Oshawa";
-                ron.LastName = "Ronaldson";
-                var UserRonInfo = new MyUserInfo() { FirstName = "Ronald", LastName = "Ronaldson" };
-                ron.MyUserInfo = UserRonInfo;
-                ron.PersonId = 10;
-                ron.Phone = "555-567-6791";
-                ron.SenecaId = "034234680";
-                ron.UserName = "Ron";
-                
-                dc.Faculties.Add(ron);
 
                 // 4 create faculty Bill (11)
                 Faculty bill = new Faculty();
-                // add Bill to role Faculty
                 string UserBillPw = "123456";
+                bill.PersonFirstName = "Bill";
+                bill.HomeTown = "Vaughn";
+                bill.PersonLastName = "Johnson";
+                var UserBillInfo = new MyUserInfo() { FirstName = "Bill", LastName = "Johnson" };
+                bill.MyUserInfo = UserBillInfo;
+                bill.PersonId = 11;
+                bill.PersonPhone = "555-567-6791";
+                bill.SenecaId = "034234682";
+                bill.UserName = "Bill";
+                dc.Faculties.Add(bill);
+                // Make "bill" a user and add him to role "faculty"
                 var UserBillCreate = UserManager.Create(bill, UserBillPw);
                 if (UserBillCreate.Succeeded) {
                     var addUserBillToRoleFacultyResult = UserManager.AddToRole(bill.Id, roleFaculty);
                 }
-                bill.FirstName = "Bill";
-                bill.HomeTown = "Vaughn";
-                bill.LastName = "Johnson";
-                var UserBillInfo = new MyUserInfo() { FirstName = "Bill", LastName = "Johnson" };
-                bill.MyUserInfo = UserBillInfo;
-                bill.PersonId = 11;
-                bill.Phone = "555-567-6791";
-                bill.SenecaId = "034234682";
-                bill.UserName = "Bill";
-                
-                dc.Faculties.Add(bill);
-
 
                 // add courses to mark (8)
                 // 1) Mark teaches IPC144
