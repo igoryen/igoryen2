@@ -27,20 +27,14 @@ namespace igoryen2.Controllers {
             var currentUser = manager.FindById(User.Identity.GetUserId());
             IEnumerable<Cancellation> cancellations = new List<Cancellation>();
 
-            bool tf_st = User.IsInRole("Student");
             if (User.IsInRole("Student")) {
                 cancellations = db.Cancellations.Where(c => c.Students.Any(s => s.Id == currentUser.Id));
-                int count = cancellations.Count();
             }
-            bool tf_fa = User.IsInRole("Faculty");
             if (User.IsInRole("Faculty")) {
                 cancellations = db.Cancellations.Where(c => c.Creator.Id == currentUser.Id);
-                int count = cancellations.Count();
             }
-            bool tf_ad = User.IsInRole("Admin");
             if (User.IsInRole("Admin")) {
                 cancellations = db.Cancellations;
-                int count = cancellations.Count();
             }
             return View(cancellations.ToList());
         }
