@@ -8,13 +8,14 @@ using igoryen2.Models;
 
 namespace igoryen2.ViewModels {
 
-    // v1
+    // v2
     public class StudentBase {
         [Key]
+        public int Id { get; set; }
         public string SenecaId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Id { get; set; }
+        public string UserId { get; set; }
     }
 
     // v1

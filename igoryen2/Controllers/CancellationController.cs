@@ -21,14 +21,14 @@ namespace igoryen2.Controllers {
         private Repo_Cancellation rcc = new Repo_Cancellation();
         private VM_Error vme = new VM_Error();
 
-        // v2
+        // v3
         // GET: /Cancellation/
         public ActionResult Index() {
             var currentUser = manager.FindById(User.Identity.GetUserId());
             IEnumerable<Cancellation> cancellations = new List<Cancellation>();
 
             if (User.IsInRole("Student")) {
-                cancellations = db.Cancellations.Where(c => c.Students.Any(s => s.Id == currentUser.Id));
+                cancellations = db.Cancellations.Where(c => c.Students.Any(s => s.UserId == currentUser.Id));
             }
             if (User.IsInRole("Faculty")) {
                 cancellations = db.Cancellations.Where(c => c.Creator.Id == currentUser.Id);
