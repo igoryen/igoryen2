@@ -7,15 +7,30 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using igoryen2.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace igoryen2.Controllers {
     public class CourseController : Controller {
         private DataContext db = new DataContext();
+        private UserManager<ApplicationUser> manager;
 
-        //v2
+        //v3
         // GET: /Course/
         public ActionResult Index() {
-            return View(db.Courses.Include("Faculty").ToList());
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            IEnumerable<Course> courses = new List<Course>();
+
+            if (User.IsInRole("Student")) {
+                courses = db.Courses.Include("Faculty").Where(c => c.Students.Any(s => s.Id == currentUser.Id));
+            }
+            if (User.IsInRole("Faculty")) {
+                courses = db.Courses.Where(c => c.Faculty.Id == currentUser.Id);
+            }
+            if (User.IsInRole("Admin")) {
+                courses = db.Courses.Include("Faculty");
+            }
+            return View(courses.ToList());
         }
 
         // GET: /Course/Details/5
@@ -103,6 +118,12 @@ namespace igoryen2.Controllers {
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // v1
+        public CourseController() {
+            db = new DataContext();
+            manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
     }
 }
