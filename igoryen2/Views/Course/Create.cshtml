@@ -1,4 +1,4 @@
-﻿@model igoryen2.Models.Course
+﻿@model igoryen2.ViewModels.CourseCreateForHttpGet
 
 @{
     ViewBag.Title = "Create";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Course</h4>
+        <h4>CourseCreateForHttpGet</h4>
         <hr />
         @Html.ValidationSummary(true)
 
@@ -33,26 +33,26 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RoomNumber, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RoomNo, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RoomNumber)
-                @Html.ValidationMessageFor(model => model.RoomNumber)
+                @Html.EditorFor(model => model.RoomNo)
+                @Html.ValidationMessageFor(model => model.RoomNo)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TimeStart, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DateStart, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeStart)
-                @Html.ValidationMessageFor(model => model.TimeStart)
+                @Html.EditorFor(model => model.DateStart)
+                @Html.ValidationMessageFor(model => model.DateStart)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TimeEnd, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DateEnd, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeEnd)
-                @Html.ValidationMessageFor(model => model.TimeEnd)
+                @Html.EditorFor(model => model.DateEnd)
+                @Html.ValidationMessageFor(model => model.DateEnd)
             </div>
         </div>
 

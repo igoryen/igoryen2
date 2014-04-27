@@ -29,5 +29,7 @@ namespace igoryen2.Models {
         public DbSet<Student> Students { get; set; }
 
         public System.Data.Entity.DbSet<igoryen2.ViewModels.CancellationCreateForHttpGet> CancellationCreateForHttpGets { get; set; }
+
+        public System.Data.Entity.DbSet<igoryen2.ViewModels.CourseCreateForHttpGet> CourseCreateForHttpGets { get; set; }
     }
 }
