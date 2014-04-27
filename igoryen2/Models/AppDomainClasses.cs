@@ -8,13 +8,15 @@ using igoryen2.ViewModels;
 
 namespace igoryen2.Models {
 
-    //v4
+    //v5
     public class Cancellation {
         public int CancellationId { get; set; }
         public ApplicationUser Creator { get; set; }
         public int CourseId { get; set; }
         public string CourseCode { get; set; }
-        public string Date { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> Date { get; set; }
         public string Message { get; set; }
         public List<StudentBase> Students { get; set; }
     }
