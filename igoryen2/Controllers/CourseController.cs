@@ -16,6 +16,7 @@ namespace igoryen2.Controllers {
         private DataContext db = new DataContext();
         private UserManager<ApplicationUser> manager;
         static CourseCreateForHttpGet courseToCreate = new CourseCreateForHttpGet();
+        private Repo_Student rs = new Repo_Student();
 
 
         //v3
@@ -48,12 +49,12 @@ namespace igoryen2.Controllers {
             return View(course);
         }
 
-        //v2
+        //v3
         // GET: /Course/Create
         public ActionResult Create() {
             var currentUser = manager.FindById(User.Identity.GetUserId());
-            courseToCreate.SelectListOfStudent = rs.getSelectListOfStudent(currentUser.Id);
-            courseToCreate.SelectListOfFaculty = rf.getSelectListOfFaculty(currentUser.Id);
+            courseToCreate.SelectListOfStudent = rs.getSelectListOfStudent();
+            courseToCreate.SelectListOfFaculty = rf.getSelectListOfFaculty();
             return View(courseToCreate);
         }
 
