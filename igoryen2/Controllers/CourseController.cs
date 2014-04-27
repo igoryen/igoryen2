@@ -17,6 +17,7 @@ namespace igoryen2.Controllers {
         private UserManager<ApplicationUser> manager;
         static CourseCreateForHttpGet courseToCreate = new CourseCreateForHttpGet();
         private Repo_Student rs = new Repo_Student();
+        private Repo_Faculty rf = new Repo_Faculty();
 
 
         //v3
