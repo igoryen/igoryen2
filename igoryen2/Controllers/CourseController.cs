@@ -12,9 +12,10 @@ namespace igoryen2.Controllers {
     public class CourseController : Controller {
         private DataContext db = new DataContext();
 
+        //v2
         // GET: /Course/
         public ActionResult Index() {
-            return View(db.Courses.ToList());
+            return View(db.Courses.Include("Faculty").ToList());
         }
 
         // GET: /Course/Details/5

@@ -18,6 +18,9 @@
             @Html.DisplayNameFor(model => model.CourseName)
         </th>
         <th>
+            Faculty
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.RoomNumber)
         </th>
         <th>
@@ -36,6 +39,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CourseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Faculty.MyUserInfo.LastName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.RoomNumber)
