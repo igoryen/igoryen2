@@ -9,11 +9,14 @@ using System.Web.Mvc;
 using igoryen2.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using igoryen2.ViewModels;
 
 namespace igoryen2.Controllers {
     public class CourseController : Controller {
         private DataContext db = new DataContext();
         private UserManager<ApplicationUser> manager;
+        static CourseCreateForHttpGet courseToCreate = new CourseCreateForHttpGet();
+
 
         //v3
         // GET: /Course/
@@ -45,9 +48,13 @@ namespace igoryen2.Controllers {
             return View(course);
         }
 
+        //v2
         // GET: /Course/Create
         public ActionResult Create() {
-            return View();
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            courseToCreate.SelectListOfStudent = rs.getSelectListOfStudent(currentUser.Id);
+            courseToCreate.SelectListOfFaculty = rf.getSelectListOfFaculty(currentUser.Id);
+            return View(courseToCreate);
         }
 
         // POST: /Course/Create
