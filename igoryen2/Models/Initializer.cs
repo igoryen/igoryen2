@@ -11,7 +11,7 @@ using System.Data.Entity.Validation;
 namespace igoryen2.Models {
     public class Initializer : DropCreateDatabaseAlways<DataContext> {
 
-        // v5
+        // v6
         private void InitializeIdentityForEF(DataContext dc) {
 
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dc));
@@ -287,8 +287,8 @@ namespace igoryen2.Models {
                 ipc144.RoomNumber = "1111";
                 ipc144.Students = new List<Student>();
                 ipc144.Students.Add(igor);
-                ipc144.TimeEnd = "March 31";
-                ipc144.TimeStart = "January 10";
+                ipc144.TimeEnd = new DateTime(2014, 3, 31);
+                ipc144.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(ipc144);
 
                 igor.Courses.Add(ipc144);
@@ -305,8 +305,8 @@ namespace igoryen2.Models {
                 uli101.RoomNumber = "2222";
                 uli101.Students = new List<Student>();
                 uli101.Students.Add(bob);
-                uli101.TimeEnd = "March 31";
-                uli101.TimeStart = "January 10";
+                uli101.TimeEnd = new DateTime(2014, 3, 31);
+                uli101.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(uli101);
 
                 bob.Courses.Add(uli101);
@@ -323,8 +323,8 @@ namespace igoryen2.Models {
                 ios110.RoomNumber = "3333";
                 ios110.Students = new List<Student>();
                 ios110.Students.Add(wei);
-                ios110.TimeEnd = "March 31";
-                ios110.TimeStart = "January 10";
+                ios110.TimeEnd = new DateTime(2014, 3, 31);
+                ios110.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(ios110);
 
                 wei.Courses.Add(ios110);
@@ -342,8 +342,8 @@ namespace igoryen2.Models {
                 oop244.Students = new List<Student>();
                 oop244.Students.Add(igor);
                 oop244.Students.Add(john);
-                oop244.TimeEnd = "March 31";
-                oop244.TimeStart = "January 10";
+                oop244.TimeEnd = new DateTime(2014, 3, 31);
+                oop244.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(oop244);
 
                 mark.Courses.Add(oop244);
@@ -363,8 +363,8 @@ namespace igoryen2.Models {
                 int222.Students = new List<Student>();
                 int222.Students.Add(bob);
                 int222.Students.Add(jack);
-                int222.TimeEnd = "March 31";
-                int222.TimeStart = "January 10";
+                int222.TimeEnd = new DateTime(2014, 3, 31);
+                int222.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(int222);
 
                 ian.Courses.Add(int222);
@@ -384,8 +384,8 @@ namespace igoryen2.Models {
                 ibc233.Students = new List<Student>();
                 ibc233.Students.Add(wei);
                 ibc233.Students.Add(jill);
-                ibc233.TimeEnd = "March 31";
-                ibc233.TimeStart = "January 10";
+                ibc233.TimeEnd = new DateTime(2014, 3, 31);
+                ibc233.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(ibc233);
 
                 ian.Courses.Add(ibc233);
@@ -405,8 +405,8 @@ namespace igoryen2.Models {
                 dbs201.Students = new List<Student>();
                 dbs201.Students.Add(igor);
                 dbs201.Students.Add(john);
-                dbs201.TimeEnd = "March 31";
-                dbs201.TimeStart = "January 10";
+                dbs201.TimeEnd = new DateTime(2014, 3, 31);
+                dbs201.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(dbs201);
 
                 ian.Courses.Add(dbs201);
@@ -426,8 +426,8 @@ namespace igoryen2.Models {
                 oop344.Students = new List<Student>();
                 oop344.Students.Add(bob);
                 oop344.Students.Add(jack);
-                oop344.TimeEnd = "March 31";
-                oop344.TimeStart = "January 10";
+                oop344.TimeEnd = new DateTime(2014, 3, 31);
+                oop344.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(oop344);
 
                 ian.Courses.Add(oop344);
@@ -447,8 +447,8 @@ namespace igoryen2.Models {
                 int322.Students = new List<Student>();
                 int322.Students.Add(wei);
                 int322.Students.Add(jill);
-                int322.TimeEnd = "March 31";
-                int322.TimeStart = "January 10";
+                int322.TimeEnd = new DateTime(2014, 3, 31);
+                int322.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(int322);
 
                 ron.Courses.Add(int322);
@@ -467,8 +467,8 @@ namespace igoryen2.Models {
                 dbs301.RoomNumber = "1010";
                 dbs301.Students = new List<Student>();
                 dbs301.Students.Add(jill);
-                dbs301.TimeEnd = "March 31";
-                dbs301.TimeStart = "January 10";
+                dbs301.TimeEnd = new DateTime(2014, 3, 31);
+                dbs301.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(dbs301);
 
                 ron.Courses.Add(dbs301);
@@ -488,8 +488,8 @@ namespace igoryen2.Models {
                 jac444.Students.Add(igor);
                 jac444.Students.Add(john);
                 jac444.Students.Add(jack);
-                jac444.TimeEnd = "March 31";
-                jac444.TimeStart = "January 10";
+                jac444.TimeEnd = new DateTime(2014, 3, 31);
+                jac444.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(jac444);
 
                 ron.Courses.Add(jac444);
@@ -509,8 +509,8 @@ namespace igoryen2.Models {
                 int422.RoomNumber = "1212";
                 int422.Students = new List<Student>();
                 int422.Students.Add(igor);
-                int422.TimeEnd = "March 31";
-                int422.TimeStart = "January 10";
+                int422.TimeEnd = new DateTime(2014, 3, 31);
+                int422.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(int422);
 
                 ron.Courses.Add(int422);
@@ -528,8 +528,8 @@ namespace igoryen2.Models {
                 dcn455.RoomNumber = "1313";
                 dcn455.Students = new List<Student>();
                 dcn455.Students.Add(bob);
-                dcn455.TimeEnd = "March 31";
-                dcn455.TimeStart = "January 10";
+                dcn455.TimeEnd = new DateTime(2014, 3, 31);
+                dcn455.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(dcn455);
 
                 bill.Courses.Add(dcn455);
@@ -548,8 +548,8 @@ namespace igoryen2.Models {
                 bac344.Students = new List<Student>();
                 bac344.Students.Add(bob);
                 bac344.Students.Add(jack);
-                bac344.TimeEnd = "March 31";
-                bac344.TimeStart = "January 10";
+                bac344.TimeEnd = new DateTime(2014, 3, 31);
+                bac344.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(bac344);
 
                 bill.Courses.Add(bac344);
@@ -569,8 +569,8 @@ namespace igoryen2.Models {
                 map524.Students = new List<Student>();
                 map524.Students.Add(wei);
                 map524.Students.Add(jill);
-                map524.TimeEnd = "March 31";
-                map524.TimeStart = "January 10";
+                map524.TimeEnd = new DateTime(2014, 3, 31);
+                map524.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(map524);
 
                 bill.Courses.Add(map524);
@@ -589,8 +589,8 @@ namespace igoryen2.Models {
                 win210.RoomNumber = "1616";
                 win210.Students = new List<Student>();
                 win210.Students.Add(john);
-                win210.TimeEnd = "March 31";
-                win210.TimeStart = "January 10";
+                win210.TimeEnd = new DateTime(2014, 3, 31);
+                win210.TimeStart = new DateTime(2014, 1, 10);
                 dc.Courses.Add(win210);
 
                 bill.Courses.Add(win210);
