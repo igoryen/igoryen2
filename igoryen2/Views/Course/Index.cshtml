@@ -24,10 +24,10 @@
             @Html.DisplayNameFor(model => model.RoomNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TimeStart)
+            @Html.DisplayNameFor(model => model.DateStart)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TimeEnd)
+            @Html.DisplayNameFor(model => model.DateEnd)
         </th>
         <th></th>
     </tr>
@@ -47,10 +47,10 @@
             @Html.DisplayFor(modelItem => item.RoomNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TimeStart)
+            @Html.DisplayFor(modelItem => item.DateStart)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TimeEnd)
+            @Html.DisplayFor(modelItem => item.DateEnd)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |
