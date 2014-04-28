@@ -8,10 +8,10 @@ namespace igoryen2.ViewModels {
 
     public class Repo_Student : RepositoryBase {
 
-        // v1
+        // v2
         public SelectList getSelectListOfStudent() {
             IEnumerable<StudentBase> lsb = getListOfStudentBase();
-            SelectList sl = new SelectList(lsb, "Id", "FirstName", "LastName");
+            SelectList sl = new SelectList(lsb, "Id", "Caption");
             return sl;
         }
 

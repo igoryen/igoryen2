@@ -8,7 +8,7 @@ using igoryen2.Models;
 
 namespace igoryen2.ViewModels {
 
-    // v2
+    // v3
     public class StudentBase {
         [Key]
         public int Id { get; set; }
@@ -16,6 +16,7 @@ namespace igoryen2.ViewModels {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserId { get; set; }
+        public string Caption { get { return FirstName + " " + LastName + " (" + SenecaId + ")"; } }
     }
 
     // v1
