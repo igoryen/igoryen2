@@ -16,6 +16,24 @@ namespace igoryen2.ViewModels {
         public string CourseName { get; set; }
     }
 
+    //v1
+    public class CourseFull : CourseBase {
+        public string RoomNo { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> DateStart { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> DateEnd { get; set; }
+        public FacultyFull Faculty { get; set; }
+        public List<StudentFull> Students { get; set; }
+
+        public CourseFull() {
+            this.Faculty = new FacultyFull();
+            this.Students = new List<StudentFull>();
+        }
+    }
+
     //v2
     public class CourseCreateForHttpGet {
         [Key]
