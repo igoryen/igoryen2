@@ -28,7 +28,7 @@ namespace igoryen2.Models {
         public string Email { get; set; }
     }
 
-    //v2
+    //v3
     public class Course {
         public Course() {
             this.Faculty = new Faculty();
@@ -43,10 +43,10 @@ namespace igoryen2.Models {
         public string RoomNumber { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public Nullable<System.DateTime> TimeStart { get; set; }
+        public Nullable<System.DateTime> DateStart { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public Nullable<System.DateTime> TimeEnd { get; set; }
+        public Nullable<System.DateTime> DateEnd { get; set; }
         public Faculty Faculty { get; set; }
         public List<Student> Students { get; set; }
     }
