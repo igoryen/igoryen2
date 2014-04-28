@@ -29,5 +29,22 @@ namespace igoryen2.ViewModels {
 
             return lsb.ToList();
         }
+
+        // v1
+        public FacultyFull getFacultyFull(int? PersonId) {
+            var dbFaculty = dc.Faculties.Include("Courses").FirstOrDefault(f => f.PersonId == PersonId);
+            if (dbFaculty == null) return null;
+            FacultyFull ff = new FacultyFull();
+            List<CourseBase> lcb = new List<CourseBase>();
+            foreach (var item in dbFaculty.Courses) {
+                CourseBase cb = new CourseBase();
+                cb.CourseCode = item.CourseCode;
+                cb.CourseId = item.CourseId;
+                cb.CourseName = item.CourseName;
+                lcb.Add(cb);
+            }
+            ff.Courses = lcb;
+            return ff;
+        }
     }
 }
