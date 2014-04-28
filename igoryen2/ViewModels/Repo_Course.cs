@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using igoryen2.Models;
+
 
 namespace igoryen2.ViewModels {
     public class Repo_Course : RepositoryBase {
 
         private Repo_Faculty rf = new Repo_Faculty();
         private Repo_Student rs = new Repo_Student();
+
 
         public IEnumerable<CourseBase> getListOfCourseBase(string currentUserId) {
             var courses = dc.Courses.Where(course => course.Faculty.Id == currentUserId).ToList();
@@ -57,6 +60,31 @@ namespace igoryen2.ViewModels {
             }
             cf.Students = lsf;
             return cf;
+        }
+
+        // v1
+        public CourseFull buildCourse(CourseCreateForHttpPost newItem) {
+
+            var dbFaculty = dc.Faculties.Find(newItem.FacultyId);
+
+            Course course = new Course();
+            course.CourseCode = newItem.CourseCode;
+            course.CourseId = newItem.CourseId;
+            course.CourseName = newItem.CourseName;
+            course.DateEnd = newItem.DateEnd;
+            course.DateStart = newItem.DateStart;
+            course.Faculty = dc.Faculties.FirstOrDefault(f => f.Id == newItem.FacultyId);
+            course.RoomNumber = newItem.RoomNo;
+            course.Students = new List<Student>();
+            List<Student> ls = new List<Student>();
+            foreach (var item in newItem.StudentIds) {
+                var student = dc.Students.Find(item);
+                course.Students.Add(student);
+            }
+            dc.Courses.Add(course);
+            dc.SaveChanges();
+
+            return getCourseFull(course.CourseId);
         }
 
     }
