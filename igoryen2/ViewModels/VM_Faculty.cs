@@ -17,4 +17,13 @@ namespace igoryen2.ViewModels {
         public string Caption { get { return FirstName + " " + LastName; } }
 
     }
+
+    // v1
+    public class FacultyFull : FacultyBase {
+        public List<CourseBase> Courses { get; set; }
+        public FacultyFull() {
+            this.FirstName = string.Empty;
+            this.LastName = string.Empty;
+        }
+    }
 }
