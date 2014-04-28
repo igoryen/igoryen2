@@ -40,8 +40,10 @@ namespace igoryen2.ViewModels {
         }
     }
 
-    //v1
+    //v2
     public class CourseCreateForHttpPost {
+        [Key]
+        public int CourseId { get; set; }
         [Required]
         public string CourseCode { get; set; }
         [Required]
@@ -57,9 +59,9 @@ namespace igoryen2.ViewModels {
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DateEnd { get; set; }
         [Required(ErrorMessage = "Select a Faculty")]
-        public int FacultyId { get; set; }
+        public string FacultyId { get; set; }
         [Required(ErrorMessage = "Select One or More Students")]
-        public virtual ICollection<int> StudentId { get; set; }
+        public virtual ICollection<int> StudentIds { get; set; }
 
     }
 }

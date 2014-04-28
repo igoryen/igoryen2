@@ -1,0 +1,124 @@
+[1mdiff --git a/igoryen2/Controllers/CourseController.cs b/igoryen2/Controllers/CourseController.cs[m
+[1mindex 3b3c222..c3a17b2 100644[m
+[1m--- a/igoryen2/Controllers/CourseController.cs[m
+[1m+++ b/igoryen2/Controllers/CourseController.cs[m
+[36m@@ -64,14 +64,57 @@[m [mnamespace igoryen2.Controllers {[m
+         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.[m
+         [HttpPost][m
+         [ValidateAntiForgeryToken][m
+[31m-        public ActionResult Create([Bind(Include = "CourseId,CourseCode,CourseName,RoomNumber,TimeStart,TimeEnd")] Course course) {[m
+[32m+[m[32m        public ActionResult Create(CourseCreateForHttpPost newItem) {[m
+             if (ModelState.IsValid) {[m
+[32m+[m[32m                var course = rc.buildCourse(newItem);[m
+                 db.Courses.Add(course);[m
+[31m-                db.SaveChanges();[m
+[31m-                return RedirectToAction("Index");[m
+[32m+[m[32m                try {[m
+[32m+[m[32m                    db.SaveChanges();[m
+[32m+[m[32m                }[m
+[32m+[m[32m                //---------------------------------------[m
+[32m+[m[32m                catch (DbEntityValidationException e) {[m
+[32m+[m[32m                    //----------------------------------------------------------[m
+[32m+[m[32m                    List<string> output1 = new List<string>();[m
+[32m+[m[32m                    List<string> output2 = new List<string>();[m
+[32m+[m[32m                    foreach (var eve in e.EntityValidationErrors) {[m
+[32m+[m[32m                        output1.Add("Entity of type " + eve.Entry.Entity.GetType().Name + " in state " + eve.Entry.State + " has the following validation errors:");[m
+[32m+[m[32m                        foreach (var ve in eve.ValidationErrors) {[m
+[32m+[m[32m                            output1.Add("- Property: " + ve.PropertyName + ", Error: " + ve.ErrorMessage);[m
+[32m+[m[32m                        } // foreach()[m
+[32m+[m
+[32m+[m[32m                        /*[m
+[32m+[m[32m                        Console.WriteLine("======================================");[m
+[32m+[m[32m                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",[m
+[32m+[m[32m                            eve.Entry.Entity.GetType().Name, eve.Entry.State);[m
+[32m+[m[32m                        foreach (var ve in eve.ValidationErrors) {[m
+[32m+[m[32m                          Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",[m
+[32m+[m[32m                              ve.PropertyName, ve.ErrorMessage);[m
+[32m+[m[32m                        }[m
+[32m+[m[32m                         */[m
+[32m+[m[32m                    } // foreach[m
+[32m+[m[32m                    output2 = output1;[m
+[32m+[m[32m                    throw;[m
+[32m+[m[32m                } // catch[m
+[32m+[m[32m                //---------------------------------------[m
+[32m+[m[32m                var createdCourse = rc.getCourse(course.CourseId);[m
+[32m+[m[32m                if (createdCourse == null) {[m
+[32m+[m[32m                    return View("Error", vme.GetErrorModel(null, ModelState));[m
+[32m+[m[32m                }[m
+[32m+[m[32m                else {[m
+[32m+[m[32m                    //cancellationToCreate.Clear();[m
+[32m+[m[32m                    return RedirectToAction("Details", new { id = createdCourse.CourseId });[m
+[32m+[m[32m                }[m
+             }[m
+[32m+[m[32m            else {[m
+[32m+[m[32m                if (newItem.CourseId == -1)[m
+[32m+[m[32m                    ModelState.AddModelError("CourseSelectList", "Select a Course");[m
+[32m+[m[32m                //if (newItem.GenreId == null) ModelState.AddModelError("GenreSelectList", "Select One or More Genres");[m
+ [m
+[31m-            return View(course);[m
+[32m+[m[32m                courseToCreate.Date = newItem.Date;[m
+[32m+[m[32m                courseToCreate.Message = newItem.Message;[m
+[32m+[m
+[32m+[m[32m                return View(courseToCreate);[m
+[32m+[m[32m            }[m
+         }[m
+ [m
+         // GET: /Course/Edit/5[m
+[1mdiff --git a/igoryen2/Models/AppDomainClasses.cs b/igoryen2/Models/AppDomainClasses.cs[m
+[1mindex 0b2013e..31c4aef 100644[m
+[1m--- a/igoryen2/Models/AppDomainClasses.cs[m
+[1m+++ b/igoryen2/Models/AppDomainClasses.cs[m
+[36m@@ -43,10 +43,10 @@[m [mnamespace igoryen2.Models {[m
+         public string RoomNumber { get; set; }[m
+         [DataType(DataType.Date)][m
+         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)][m
+[31m-        public Nullable<System.DateTime> TimeStart { get; set; }[m
+[32m+[m[32m        public Nullable<System.DateTime> DateStart { get; set; }[m
+         [DataType(DataType.Date)][m
+         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)][m
+[31m-        public Nullable<System.DateTime> TimeEnd { get; set; }[m
+[32m+[m[32m        public Nullable<System.DateTime> DateEnd { get; set; }[m
+         public Faculty Faculty { get; set; }[m
+         public List<Student> Students { get; set; }[m
+     }[m
+[1mdiff --git a/igoryen2/ViewModels/Repo_Course.cs b/igoryen2/ViewModels/Repo_Course.cs[m
+[1mindex fea2f36..a3e2e83 100644[m
+[1m--- a/igoryen2/ViewModels/Repo_Course.cs[m
+[1m+++ b/igoryen2/ViewModels/Repo_Course.cs[m
+[36m@@ -3,6 +3,7 @@[m [musing System.Collections.Generic;[m
+ using System.Linq;[m
+ using System.Web;[m
+ using System.Web.Mvc;[m
+[32m+[m[32musing igoryen2.Models;[m
+ [m
+ namespace igoryen2.ViewModels {[m
+     public class Repo_Course : RepositoryBase {[m
+[1mdiff --git a/igoryen2/ViewModels/VM_Course.cs b/igoryen2/ViewModels/VM_Course.cs[m
+[1mindex d99bc80..fecb9c3 100644[m
+[1m--- a/igoryen2/ViewModels/VM_Course.cs[m
+[1m+++ b/igoryen2/ViewModels/VM_Course.cs[m
+[36m@@ -40,8 +40,10 @@[m [mnamespace igoryen2.ViewModels {[m
+         }[m
+     }[m
+ [m
+[31m-    //v1[m
+[32m+[m[32m    //v2[m
+     public class CourseCreateForHttpPost {[m
+[32m+[m[32m        [Key][m
+[32m+[m[32m        public int CourseId { get; set; }[m
+         [Required][m
+         public string CourseCode { get; set; }[m
+         [Required][m
+[36m@@ -57,9 +59,9 @@[m [mnamespace igoryen2.ViewModels {[m
+         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)][m
+         public Nullable<System.DateTime> DateEnd { get; set; }[m
+         [Required(ErrorMessage = "Select a Faculty")][m
+[31m-        public int FacultyId { get; set; }[m
+[32m+[m[32m        public string FacultyId { get; set; }[m
+         [Required(ErrorMessage = "Select One or More Students")][m
+[31m-        public virtual ICollection<int> StudentId { get; set; }[m
+[32m+[m[32m        public virtual ICollection<int> StudentIds { get; set; }[m
+ [m
+     }[m
+ }[m
+\ No newline at end of file[m
