@@ -7,10 +7,14 @@ using System.Web.Mvc;
 namespace igoryen2.ViewModels {
     public class Repo_Faculty : RepositoryBase {
 
-        // v2
+        // v3
         public SelectList getSelectListOfFaculty() {
-            IEnumerable<FacultyBase> lfb = getListOfFacultyBase();
-            SelectList sl = new SelectList(lfb, "Id", "Caption");
+            var lfb = new List<FacultyBase>();
+            lfb.Add(new FacultyBase{ FirstName = "Select a faculty", Id = -1 });
+            foreach(var item in getListOfFacultyBase()){
+                lfb.Add(item);
+            }
+            SelectList sl = new SelectList(lfb.ToList(), "Id", "Caption");
             return sl;
         }
 
