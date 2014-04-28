@@ -10,6 +10,8 @@ using igoryen2.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using igoryen2.ViewModels;
+using System.Data.Entity.Validation;
+
 
 namespace igoryen2.Controllers {
     public class CourseController : Controller {
@@ -18,6 +20,8 @@ namespace igoryen2.Controllers {
         static CourseCreateForHttpGet courseToCreate = new CourseCreateForHttpGet();
         private Repo_Student rs = new Repo_Student();
         private Repo_Faculty rf = new Repo_Faculty();
+        private Repo_Course rc = new Repo_Course();
+        private VM_Error vme = new VM_Error();
 
 
         //v3
@@ -59,20 +63,41 @@ namespace igoryen2.Controllers {
             return View(courseToCreate);
         }
 
+        //v2
         // POST: /Course/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseId,CourseCode,CourseName,RoomNumber,TimeStart,TimeEnd")] Course course) {
-            if (ModelState.IsValid) {
-                db.Courses.Add(course);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+        public ActionResult Create(CourseCreateForHttpPost newItem) {
+            if (ModelState.IsValid && newItem.FacultyId != -1) {
+                var builtCourse = rc.buildCourse(newItem);
+                if (builtCourse == null) {
+                    return View("Error", vme.GetErrorModel(null, ModelState));
+                }
+                else {
+                    courseToCreate.Clear();
+                    return RedirectToAction("Details", new { CourseId = builtCourse.CourseId });
+                }
             }
-
-            return View(course);
+            else{
+                courseToCreate.CourseCode = newItem.CourseCode;
+                courseToCreate.CourseId = newItem.CourseId;
+                courseToCreate.CourseName = newItem.CourseName;
+                courseToCreate.DateEnd = newItem.DateEnd;
+                courseToCreate.DateStart = newItem.DateStart;
+                courseToCreate.RoomNo = newItem.RoomNo;
+                if (newItem.FacultyId == -1){
+                    ModelState.AddModelError("SelectListOfFaculty", "Select a Faculty");
+                }
+                if (newItem.StudentIds == null){
+                    ModelState.AddModelError("SelectListOfStudent", "Select one or more Students");
+                }
+                return View(courseToCreate);
+            }
         }
+
+
 
         // GET: /Course/Edit/5
         public ActionResult Edit(int? id) {

@@ -62,7 +62,7 @@ namespace igoryen2.ViewModels {
             return cf;
         }
 
-        // v1
+        // v2
         public CourseFull buildCourse(CourseCreateForHttpPost newItem) {
 
             var dbFaculty = dc.Faculties.Find(newItem.FacultyId);
@@ -73,7 +73,7 @@ namespace igoryen2.ViewModels {
             course.CourseName = newItem.CourseName;
             course.DateEnd = newItem.DateEnd;
             course.DateStart = newItem.DateStart;
-            course.Faculty = dc.Faculties.FirstOrDefault(f => f.Id == newItem.FacultyId);
+            course.Faculty = dc.Faculties.FirstOrDefault(f => f.PersonId == newItem.FacultyId);
             course.RoomNumber = newItem.RoomNo;
             course.Students = new List<Student>();
             List<Student> ls = new List<Student>();
