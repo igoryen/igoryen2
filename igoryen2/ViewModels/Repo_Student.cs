@@ -34,7 +34,7 @@ namespace igoryen2.ViewModels {
             return lsb.ToList();
         }
 
-        //v1
+        //v2
         public StudentFull getStudentFull(int? StudentId) {
             var dbStudent = dc.Students.Include("Courses").FirstOrDefault(s => s.PersonId == StudentId);
             if (dbStudent == null) return null;
@@ -48,8 +48,8 @@ namespace igoryen2.ViewModels {
                 cf.CourseName = item.CourseName;
                 cf.DateEnd = item.DateEnd;
                 cf.DateStart = item.DateStart;
-                var faculty = dc.Courses.Include("Faculty").FirstOrDefault(c => c.CourseId == item.CourseId).Faculty;
-                cf.Faculty = rf.getFacultyFull(faculty.Id);
+                var dbFaculty = dc.Courses.Include("Faculty").FirstOrDefault(c => c.CourseId == item.CourseId).Faculty;
+                cf.Faculty = rf.getFacultyFull(dbFaculty.PersonId);
                 cf.RoomNo = item.RoomNumber;
             }
             sf.Courses = lcf;
