@@ -19,8 +19,8 @@ namespace igoryen2.ViewModels {
         public string Caption { get { return FirstName + " " + LastName + " (" + SenecaId + ")"; } }
     }
 
-    // v2
+    // v3
     public class StudentFull : StudentBase {
-        public List<CourseBase> Courses { get; set; }
+        public List<CourseFull> Courses { get; set; }
     }
 }
