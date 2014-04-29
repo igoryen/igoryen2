@@ -218,23 +218,25 @@ namespace igoryen2.Controllers {
             }
         }
 
+        // v2
         // GET: /Cancellation/Delete/5
         public ActionResult Delete(int? id) {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cancellation cancellation = db.Cancellations.Find(id);
+            Cancellation cancellation = db.Cancellations.Include("Creator").Include("Students").SingleOrDefault(c => c.CancellationId == id);
             if (cancellation == null) {
                 return HttpNotFound();
             }
             return View(cancellation);
         }
 
+        // v2
         // POST: /Cancellation/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            Cancellation cancellation = db.Cancellations.Find(id);
+            Cancellation cancellation = db.Cancellations.Include("Creator").Include("Students").SingleOrDefault(c => c.CancellationId == id);
             db.Cancellations.Remove(cancellation);
             db.SaveChanges();
             return RedirectToAction("Index");
