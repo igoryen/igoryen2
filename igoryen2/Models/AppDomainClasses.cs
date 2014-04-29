@@ -51,6 +51,7 @@ namespace igoryen2.Models {
         public List<Student> Students { get; set; }
     }
 
+    // v2
     public class Faculty : Person {
         public Faculty() {
             this.Courses = new List<Course>();
@@ -67,6 +68,8 @@ namespace igoryen2.Models {
         [RegularExpression("^[0][0-9]{8}$", ErrorMessage = "0 followed by 8 digits")]
         public string SenecaId { get; set; }
         public List<Course> Courses { get; set; }
+        public string Caption { get { return PersonFirstName + " " + PersonLastName + " (" + SenecaId + ")"; } }
+
     }
 
     // v2
@@ -99,6 +102,7 @@ namespace igoryen2.Models {
         public string PersonPhone { get; set; }
     }
 
+    // v2
     public class Student : Person {
         public Student() {
             SenecaId = string.Empty;
@@ -115,6 +119,8 @@ namespace igoryen2.Models {
         public string SenecaId { get; set; }
         public List<Course> Courses { get; set; }
         //public List<ComMethod> ComMethods { get; set; }
+        public string Caption { get { return PersonFirstName + " " + PersonLastName + " (" + SenecaId + ")"; } }
+
     }
 
 

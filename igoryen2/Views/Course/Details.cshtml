@@ -50,6 +50,28 @@
             @Html.DisplayFor(model => model.DateEnd)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Faculty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Faculty.Caption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Students)
+        </dt>
+        @if (Model.Students.Count > 0) {
+            var i = 0;
+            foreach (var item in Model.Students) {
+                i++;
+                <dd>@i) @item.Caption<br /></dd>
+            }
+        }
+        else {
+            <dd><i>No students found</i><br /></dd>
+        }
+
     </dl>
 </div>
 <p>

@@ -42,12 +42,13 @@ namespace igoryen2.Controllers {
             return View(courses.ToList());
         }
 
+        // v2
         // GET: /Course/Details/5
         public ActionResult Details(int? id) {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+            Course course = db.Courses.Include("Faculty").Include("Students").SingleOrDefault(c => c.CourseId == id);
             if (course == null) {
                 return HttpNotFound();
             }
