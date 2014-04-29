@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using igoryen2.Models;
 
 namespace igoryen2.ViewModels {
 
@@ -60,6 +61,19 @@ namespace igoryen2.ViewModels {
             sf.SenecaId = dbStudent.SenecaId;
             sf.UserId = dbStudent.UserName;
             return sf;
+        }
+
+        // v1
+        public StudentBase toStudentBase(Student s) {
+            if (s == null) return null;
+            StudentBase sb = new StudentBase();
+            sb.FirstName = s.PersonFirstName;
+            sb.Id = s.PersonId;
+            sb.LastName = s.PersonLastName;
+            sb.SenecaId = s.SenecaId;
+            sb.UserId = s.Id;
+
+            return sb;
         }
     }
 }

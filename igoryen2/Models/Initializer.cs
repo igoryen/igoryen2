@@ -6,12 +6,14 @@ using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Validation;
+using igoryen2.ViewModels;
 
 
 namespace igoryen2.Models {
     public class Initializer : DropCreateDatabaseAlways<DataContext> {
+        private Repo_Student rs = new Repo_Student();
 
-        // v7
+        // v8
         private void InitializeIdentityForEF(DataContext dc) {
 
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dc));
@@ -597,6 +599,80 @@ namespace igoryen2.Models {
                 john.Courses.Add(win210);
 
                 dc.SaveChanges();
+
+                // a few cancellations
+                Cancellation ipc144c = new Cancellation();
+                ipc144c.CancellationId = 20;
+                ipc144c.CourseCode = ipc144.CourseCode;
+                ipc144c.CourseId = ipc144.CourseId;
+                ipc144c.Creator = ipc144.Faculty;
+                ipc144c.Date = new DateTime(2014, 2, 1);
+                ipc144c.Message = "Due to illness";
+                ipc144c.Students = new List<StudentBase>();
+                ipc144c.Students.Add(rs.toStudentBase(igor));
+                dc.Cancellations.Add(ipc144c);
+
+                Cancellation uli101c = new Cancellation();
+                uli101c.CancellationId = 21;
+                uli101c.CourseCode = uli101.CourseCode;
+                uli101c.CourseId = uli101.CourseId;
+                uli101c.Creator = uli101.Faculty;
+                uli101c.Date = new DateTime(2014, 3, 24);
+                uli101c.Message = "Due to illness";
+                uli101c.Students = new List<StudentBase>();
+                uli101c.Students.Add(rs.toStudentBase(bob));
+                dc.Cancellations.Add(uli101c);
+
+                Cancellation oop244c = new Cancellation();
+                oop244c.CancellationId = 22;
+                oop244c.CourseCode = oop244.CourseCode;
+                oop244c.CourseId = oop244.CourseId;
+                oop244c.Creator = oop244.Faculty;
+                oop244c.Date = new DateTime(2014, 1, 10);
+                oop244c.Message = "Due to illness";
+                oop244c.Students = new List<StudentBase>();
+                oop244c.Students.Add(rs.toStudentBase(igor));
+                oop244c.Students.Add(rs.toStudentBase(john));
+                dc.Cancellations.Add(oop244c);
+
+                Cancellation int222c = new Cancellation();
+                int222c.CancellationId = 23;
+                int222c.CourseCode = int222.CourseCode;
+                int222c.CourseId = int222.CourseId;
+                int222c.Creator = int222.Faculty;
+                int222c.Date = new DateTime(2014, 2, 23);
+                int222c.Message = "Due to illness";
+                int222c.Students = new List<StudentBase>();
+                int222c.Students.Add(rs.toStudentBase(bob));
+                int222c.Students.Add(rs.toStudentBase(jack));
+                dc.Cancellations.Add(int222c);
+
+                Cancellation dbs201c = new Cancellation();
+                dbs201c.CancellationId = 24;
+                dbs201c.CourseCode = dbs201.CourseCode;
+                dbs201c.CourseId = dbs201.CourseId;
+                dbs201c.Creator = dbs201.Faculty;
+                dbs201c.Date = new DateTime(2014, 4, 1);
+                dbs201c.Message = "Due to college bancruptcy :)";
+                dbs201c.Students = new List<StudentBase>();
+                dbs201c.Students.Add(rs.toStudentBase(igor));
+                dbs201c.Students.Add(rs.toStudentBase(john));
+                dc.Cancellations.Add(dbs201c);
+
+                Cancellation oop344c = new Cancellation();
+                oop344c.CancellationId = 25;
+                oop344c.CourseCode = oop344.CourseCode;
+                oop344c.CourseId = oop344.CourseId;
+                oop344c.Creator = oop344.Faculty;
+                oop344c.Date = new DateTime(2014, 4, 28);
+                oop344c.Message = "Due to vacation";
+                oop344c.Students = new List<StudentBase>();
+                oop344c.Students.Add(rs.toStudentBase(bob));
+                oop344c.Students.Add(rs.toStudentBase(jack));
+                dc.Cancellations.Add(oop344c);
+
+                dc.SaveChanges();
+
 
 
             }
