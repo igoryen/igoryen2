@@ -22,7 +22,7 @@ namespace igoryen2.Controllers {
         private VM_Error vme = new VM_Error();
         private CancellationEditForHttpGet cancellationToEdit = new CancellationEditForHttpGet();
 
-        // v5
+        // v6
         // GET: /Cancellation/
         public ActionResult Index() {
             var currentUser = manager.FindById(User.Identity.GetUserId());
@@ -30,6 +30,7 @@ namespace igoryen2.Controllers {
 
             if (User.IsInRole("Student")) {
                 cancellations = db.Cancellations.Include("Creator").Where(c => c.Students.Any(s => s.UserId == currentUser.Id)).OrderBy(c => c.Date);
+                int count = cancellations.Count();
             }
             if (User.IsInRole("Faculty")) {
                 cancellations = db.Cancellations.Where(c => c.Creator.Id == currentUser.Id).OrderBy(c => c.Date);
@@ -120,7 +121,7 @@ namespace igoryen2.Controllers {
             }
         }
 
-        // v1
+        // v2
         // GET: /Cancellation/Edit/5
         public ActionResult Edit(int? id) {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -148,34 +149,58 @@ namespace igoryen2.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CancellationEditForHttpPost newItem) {
-            Cancellation cancellation = new Cancellation();
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            Cancellation cancellationOld = new Cancellation();
+            cancellationOld = db.Cancellations.Include("Students").FirstOrDefault(cc => cc.CancellationId == newItem.CancellationId);
+            Cancellation cancellationNew = new Cancellation();
             if (ModelState.IsValid) {
-                cancellation.CancellationId = newItem.CancellationId;
+                //if(cancellationOld.CancellationId != newItem.CancellationId){
+                    cancellationNew.CancellationId = newItem.CancellationId;
+                //}
                 Course course = new Course();
                 course = db.Courses.AsNoTracking().Include("Students").FirstOrDefault(c => c.CourseId == newItem.CourseId);
-                cancellation.CourseCode = course.CourseCode;
-                cancellation.CourseId = newItem.CourseId;
-                cancellation.Creator = newItem.Creator;
-                cancellation.Date = newItem.Date;
-                cancellation.Message = newItem.Message;
+                //if(cancellationOld.CourseCode != course.CourseCode) {
+                    cancellationNew.CourseCode = course.CourseCode;
+                //}
+                //if(cancellationOld.CourseId != newItem.CourseId) {
+                    cancellationNew.CourseId = newItem.CourseId;
+                //}
+                //if(cancellationOld.Creator != newItem.Creator) {
+                    //cancellationNew.Creator = newItem.Creator;
+                    cancellationNew.Creator = currentUser;
+                //}
+                //if(cancellationOld.Date != newItem.Date) {
+                    cancellationNew.Date = newItem.Date;
+                //}
+                //if(cancellationOld.Message != newItem.Message) {
+                    cancellationNew.Message = newItem.Message;
+                //}                
 
-                cancellation.Students = new List<StudentBase>();
-                List<StudentBase> lsb = new List<StudentBase>();
-                foreach (var student in course.Students) {
-                    StudentBase sb = new StudentBase();
-                    sb.UserId = student.Id;
-                    sb.FirstName = student.PersonFirstName;
-                    sb.LastName = student.PersonLastName;
-                    sb.SenecaId = student.SenecaId;
-                    lsb.Add(sb);
+                cancellationNew.Students = new List<StudentBase>();
+                List<StudentBase> lsbNew = new List<StudentBase>();
+
+                foreach (var studentNew in course.Students) {
+                    StudentBase sbNew = new StudentBase();
+
+                    //foreach(var studentOld in cancellationOld.Students){
+                        //if (studentOld.UserId != studentNew.Id) {
+                            sbNew.FirstName = studentNew.PersonFirstName;
+                            sbNew.Id = studentNew.PersonId;
+                            sbNew.LastName = studentNew.PersonLastName;
+                            sbNew.SenecaId = studentNew.SenecaId;
+                            sbNew.UserId = studentNew.Id;
+
+                            lsbNew.Add(sbNew);
+                        //}
+                    //}
                 }
-                cancellation.Students = lsb;
-
-                db.Entry(cancellation).State = EntityState.Modified;
+                cancellationNew.Students = lsbNew;
+                db.Detach(cancellationOld);
+                db.Entry(cancellationNew).State = EntityState.Modified;
                 db.SaveChanges();
 
                 //------------------------------------
-                var editedCancellation = rcc.getCancellation(cancellation.CancellationId);
+                var editedCancellation = rcc.getCancellation(cancellationNew.CancellationId);
                 if (editedCancellation == null) {
                     return View("Error", vme.GetErrorModel(null, ModelState));
                 }

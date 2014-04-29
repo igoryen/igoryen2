@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 
 namespace igoryen2.Models {
@@ -9,6 +10,7 @@ namespace igoryen2.Models {
         public virtual MyUserInfo MyUserInfo { get; set; }
     }
 
+    // v2
     public class DataContext : IdentityDbContext<ApplicationUser> {
         public DataContext()
             : base("DefaultConnection") {
@@ -18,6 +20,11 @@ namespace igoryen2.Models {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<IdentityUser>().ToTable("Users");
             modelBuilder.Entity<ApplicationUser>().ToTable("Users");
+        }
+
+        public void Detach(object entity) {
+            var objectContext = ((IObjectContextAdapter)this).ObjectContext;
+            objectContext.Detach(entity);
         }
 
         public DbSet<Cancellation> Cancellations { get; set; }
