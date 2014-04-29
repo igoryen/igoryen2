@@ -17,7 +17,7 @@ namespace igoryen2.ViewModels {
             return sl;
         }
 
-        // v1
+        // v2
         public IEnumerable<StudentBase> getListOfStudentBase() {
             var students = dc.Students.OrderBy(student => student.PersonLastName);
             if (students == null) return null;
@@ -26,8 +26,9 @@ namespace igoryen2.ViewModels {
                 StudentBase sb = new StudentBase();
                 sb.FirstName = item.PersonFirstName;
                 sb.LastName = item.PersonLastName;
+                sb.Id = item.PersonId;
                 sb.SenecaId = item.SenecaId;
-                sb.UserId = item.Id;
+                //sb.UserId = item.Id;
                 lsb.Add(sb);
             }
 

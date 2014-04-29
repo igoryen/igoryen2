@@ -58,7 +58,7 @@ namespace igoryen2.ViewModels {
         }
     }
 
-    //v3
+    //v4
     public class CourseCreateForHttpPost {
         [Key]
         public int CourseId { get; set; }
@@ -79,7 +79,7 @@ namespace igoryen2.ViewModels {
         [Required(ErrorMessage = "Select a Faculty")]
         public int FacultyId { get; set; }
         [Required(ErrorMessage = "Select One or More Students")]
-        public virtual ICollection<int> StudentIds { get; set; }
+        public virtual ICollection<int> StudentId { get; set; }
 
     }
 }

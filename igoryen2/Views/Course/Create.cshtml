@@ -59,7 +59,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Faculty</label>
             <div class="col-md-10">
-                @Html.DropDownList("Id", Model.SelectListOfFaculty)
+                @Html.DropDownList("FacultyId", Model.SelectListOfFaculty)
                 @Html.ValidationMessageFor(model => model.SelectListOfFaculty)
             </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Students</label>
             <div class="col-md-10">
-                @Html.ListBox("Id", Model.SelectListOfStudent)
+                @Html.ListBox("StudentId", Model.SelectListOfStudent)
                 @Html.ValidationMessageFor(model => model.SelectListOfStudent)
             </div>
         </div>

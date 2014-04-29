@@ -63,21 +63,22 @@ namespace igoryen2.Controllers {
             return View(courseToCreate);
         }
 
-        //v2
+        //v3
         // POST: /Course/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CourseCreateForHttpPost newItem) {
+
             if (ModelState.IsValid && newItem.FacultyId != -1) {
                 var builtCourse = rc.buildCourse(newItem);
                 if (builtCourse == null) {
                     return View("Error", vme.GetErrorModel(null, ModelState));
                 }
                 else {
-                    courseToCreate.Clear();
-                    return RedirectToAction("Details", new { CourseId = builtCourse.CourseId });
+                    //courseToCreate.Clear();
+                    return RedirectToAction("Details", new { id = builtCourse.CourseId });
                 }
             }
             else{
@@ -90,7 +91,7 @@ namespace igoryen2.Controllers {
                 if (newItem.FacultyId == -1){
                     ModelState.AddModelError("SelectListOfFaculty", "Select a Faculty");
                 }
-                if (newItem.StudentIds == null){
+                if (newItem.StudentId == null){
                     ModelState.AddModelError("SelectListOfStudent", "Select one or more Students");
                 }
                 return View(courseToCreate);

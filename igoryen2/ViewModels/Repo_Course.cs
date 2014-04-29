@@ -62,10 +62,10 @@ namespace igoryen2.ViewModels {
             return cf;
         }
 
-        // v2
-        public CourseFull buildCourse(CourseCreateForHttpPost newItem) {
+        // v3
+        public Course buildCourse(CourseCreateForHttpPost newItem) {
 
-            var dbFaculty = dc.Faculties.Find(newItem.FacultyId);
+            //var dbFaculty = dc.Faculties.Where(f => f.PersonId == newItem.FacultyId);
 
             Course course = new Course();
             course.CourseCode = newItem.CourseCode;
@@ -77,15 +77,23 @@ namespace igoryen2.ViewModels {
             course.RoomNumber = newItem.RoomNo;
             course.Students = new List<Student>();
             List<Student> ls = new List<Student>();
-            foreach (var item in newItem.StudentIds) {
-                var student = dc.Students.Find(item);
+            foreach (var item in newItem.StudentId) {
+                var student = dc.Students.FirstOrDefault(s => s.PersonId == item);
                 course.Students.Add(student);
             }
             dc.Courses.Add(course);
             dc.SaveChanges();
 
-            return getCourseFull(course.CourseId);
+            return getCourse(course.CourseId);
         }
 
+        // v1
+        public Course getCourse(int? CourseId) {
+            if (CourseId == null) return null;
+            var course = dc.Courses.Include("Faculty").SingleOrDefault(c => c.CourseId == CourseId);
+            if (course == null) return null;
+
+            return course;
+        }
     }
 }

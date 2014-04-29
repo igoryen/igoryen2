@@ -18,20 +18,21 @@ namespace igoryen2.ViewModels {
             return sl;
         }
 
-        // v1
+        // v2
         public IEnumerable<FacultyBase> getListOfFacultyBase() {
             var faculties = dc.Faculties.OrderBy(faculty => faculty.PersonLastName);
             if (faculties == null) return null;
-            List<FacultyBase> lsb = new List<FacultyBase>();
+            List<FacultyBase> lfb = new List<FacultyBase>();
             foreach (var item in faculties) {
-                FacultyBase sb = new FacultyBase();
-                sb.FirstName = item.PersonFirstName;
-                sb.LastName = item.PersonLastName;
-                sb.SenecaId = item.SenecaId;
-                lsb.Add(sb);
+                FacultyBase fb = new FacultyBase();
+                fb.FirstName = item.PersonFirstName;
+                fb.Id = item.PersonId;
+                fb.LastName = item.PersonLastName;
+                fb.SenecaId = item.SenecaId;
+                lfb.Add(fb);
             }
 
-            return lsb.ToList();
+            return lfb.ToList();
         }
 
         // v1
