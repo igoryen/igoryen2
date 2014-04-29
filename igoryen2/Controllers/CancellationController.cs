@@ -21,6 +21,7 @@ namespace igoryen2.Controllers {
         private Repo_Cancellation rcc = new Repo_Cancellation();
         private VM_Error vme = new VM_Error();
         private CancellationEditForHttpGet cancellationToEdit = new CancellationEditForHttpGet();
+        private Repo_Faculty rf = new Repo_Faculty();
 
         // v6
         // GET: /Cancellation/
@@ -53,10 +54,17 @@ namespace igoryen2.Controllers {
             return View(cancellation);
         }
 
+        // v2
         // GET: /Cancellation/Create
         public ActionResult Create() {
-            var currentuser = manager.FindById(User.Identity.GetUserId());
-            cancellationToCreate.SelectListOfCourse = rc.getSelectListOfCourse(currentuser.Id);
+            if (User.IsInRole("Faculty")) {
+                var currentuser = manager.FindById(User.Identity.GetUserId());
+                cancellationToCreate.SelectListOfCourse = rc.getSelectListOfCourse(currentuser.Id);
+            }
+            if (User.IsInRole("Admin")) {
+                cancellationToCreate.SelectListOfCourse = rc.getSelectListOfCourse();
+                cancellationToCreate.SelectListOfFaculty = rf.getSelectListOfFaculty();
+            }
             return View(cancellationToCreate);
         }
 

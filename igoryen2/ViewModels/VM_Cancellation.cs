@@ -9,11 +9,12 @@ using igoryen2.Models;
 
 namespace igoryen2.ViewModels {
 
-    // v2
+    // v3
     public class CancellationCreateForHttpGet {
         [Key]
         public int CancellationId { get; set; }
         public SelectList SelectListOfCourse { get; set; }
+        public SelectList SelectListOfFaculty { get; set; }
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -25,7 +26,7 @@ namespace igoryen2.ViewModels {
         }
     }
 
-    // v2
+    // v3
     public class CancellationCreateForHttpPost {
         [Key]
         public int CancellationId { get; set; }
@@ -37,6 +38,7 @@ namespace igoryen2.ViewModels {
         public Nullable<System.DateTime> Date { get; set; }
         [Required(ErrorMessage = "Select a course")]
         public int CourseId { get; set; }
+        public int FacultyId { get; set; }
     }
 
     // v1
@@ -48,5 +50,4 @@ namespace igoryen2.ViewModels {
     public class CancellationEditForHttpPost : CancellationCreateForHttpPost {
         public ApplicationUser Creator { get; set; }
     }
-
 }
