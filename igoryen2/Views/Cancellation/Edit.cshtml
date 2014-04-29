@@ -1,4 +1,4 @@
-﻿@model igoryen2.Models.Cancellation
+﻿@model igoryen2.ViewModels.CancellationEditForHttpGet
 
 @{
     ViewBag.Title = "Edit";
@@ -12,10 +12,18 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Cancellation</h4>
+        <h4>CancellationEditForHttpGet</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.CancellationId)
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Course</label>
+            <div class="col-md-10">
+                @Html.DropDownList("CourseId", Model.SelectListOfCourse)
+                @Html.ValidationMessageFor(model => model.SelectListOfCourse)
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })

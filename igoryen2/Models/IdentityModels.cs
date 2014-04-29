@@ -31,5 +31,7 @@ namespace igoryen2.Models {
         public System.Data.Entity.DbSet<igoryen2.ViewModels.CancellationCreateForHttpGet> CancellationCreateForHttpGets { get; set; }
 
         public System.Data.Entity.DbSet<igoryen2.ViewModels.CourseCreateForHttpGet> CourseCreateForHttpGets { get; set; }
+
+        public System.Data.Entity.DbSet<igoryen2.ViewModels.CancellationEditForHttpGet> CancellationEditForHttpGets { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using igoryen2.Models;
 
 
 namespace igoryen2.ViewModels {
@@ -36,6 +37,16 @@ namespace igoryen2.ViewModels {
         public Nullable<System.DateTime> Date { get; set; }
         [Required(ErrorMessage = "Select a course")]
         public int CourseId { get; set; }
+    }
+
+    // v1
+    public class CancellationEditForHttpGet : CancellationCreateForHttpGet {
+        public ApplicationUser Creator { get; set; }
+    }
+
+    // v1
+    public class CancellationEditForHttpPost : CancellationCreateForHttpPost {
+        public ApplicationUser Creator { get; set; }
     }
 
 }
