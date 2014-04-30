@@ -156,7 +156,6 @@ namespace igoryen2.Controllers {
             cancellationToEdit.Message = cancellation.Message;
 
             var courses = db.Courses.Where(course => course.Faculty.Id == currentUser.Id).ToList();
-            //SelectList sl = new SelectList(rc.getSelectListOfCourse(currentuser.Id));
             string selected = cancellation.CourseCode;
             cancellationToEdit.SelectListOfCourse = new SelectList(courses, "CourseId", "CourseCode", selected);
             return View(cancellationToEdit);
@@ -174,45 +173,26 @@ namespace igoryen2.Controllers {
             cancellationOld = db.Cancellations.Include("Students").FirstOrDefault(cc => cc.CancellationId == newItem.CancellationId);
             Cancellation cancellationNew = new Cancellation();
             if (ModelState.IsValid) {
-                //if(cancellationOld.CancellationId != newItem.CancellationId){
-                    cancellationNew.CancellationId = newItem.CancellationId;
-                //}
+                cancellationNew.CancellationId = newItem.CancellationId;
                 Course course = new Course();
                 course = db.Courses.AsNoTracking().Include("Students").FirstOrDefault(c => c.CourseId == newItem.CourseId);
-                //if(cancellationOld.CourseCode != course.CourseCode) {
-                    cancellationNew.CourseCode = course.CourseCode;
-                //}
-                //if(cancellationOld.CourseId != newItem.CourseId) {
-                    cancellationNew.CourseId = newItem.CourseId;
-                //}
-                //if(cancellationOld.Creator != newItem.Creator) {
-                    //cancellationNew.Creator = newItem.Creator;
-                    cancellationNew.Creator = currentUser;
-                //}
-                //if(cancellationOld.Date != newItem.Date) {
-                    cancellationNew.Date = newItem.Date;
-                //}
-                //if(cancellationOld.Message != newItem.Message) {
-                    cancellationNew.Message = newItem.Message;
-                //}                
-
+                cancellationNew.CourseCode = course.CourseCode;
+                cancellationNew.CourseId = newItem.CourseId;
+                cancellationNew.Creator = currentUser;
+                cancellationNew.Date = newItem.Date;
+                cancellationNew.Message = newItem.Message;
                 cancellationNew.Students = new List<StudentBase>();
                 List<StudentBase> lsbNew = new List<StudentBase>();
 
                 foreach (var studentNew in course.Students) {
                     StudentBase sbNew = new StudentBase();
+                    sbNew.FirstName = studentNew.PersonFirstName;
+                    sbNew.Id = studentNew.PersonId;
+                    sbNew.LastName = studentNew.PersonLastName;
+                    sbNew.SenecaId = studentNew.SenecaId;
+                    sbNew.UserId = studentNew.Id;
 
-                    //foreach(var studentOld in cancellationOld.Students){
-                        //if (studentOld.UserId != studentNew.Id) {
-                            sbNew.FirstName = studentNew.PersonFirstName;
-                            sbNew.Id = studentNew.PersonId;
-                            sbNew.LastName = studentNew.PersonLastName;
-                            sbNew.SenecaId = studentNew.SenecaId;
-                            sbNew.UserId = studentNew.Id;
-
-                            lsbNew.Add(sbNew);
-                        //}
-                    //}
+                    lsbNew.Add(sbNew);
                 }
                 cancellationNew.Students = lsbNew;
                 db.Detach(cancellationOld);
