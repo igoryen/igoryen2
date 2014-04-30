@@ -68,7 +68,7 @@ namespace igoryen2.Controllers {
             return View(cancellationToCreate);
         }
 
-        // v6
+        // v7
         // POST: /Cancellation/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -78,7 +78,13 @@ namespace igoryen2.Controllers {
             var currentUser = manager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid && newItem.CourseId != -1) {
                 var cancellation = rcc.buildCancellation(newItem);
-                cancellation.Creator = currentUser;
+                if (User.IsInRole("Faculty")) {
+                    cancellation.Creator = currentUser;
+                }
+                if (User.IsInRole("Admin")) {
+                    var faculty = db.Faculties.SingleOrDefault(f => f.PersonId == newItem.FacultyId);
+                    cancellation.Creator = faculty;
+                }
                 db.Cancellations.Add(cancellation);
                 try {
                     db.SaveChanges();
@@ -119,9 +125,10 @@ namespace igoryen2.Controllers {
             }
             else {
                 if (newItem.CourseId == -1)
-                    ModelState.AddModelError("CourseSelectList", "Select a Course");
+                    ModelState.AddModelError("SelectListOfCourse", "Select a Course");
                 //if (newItem.GenreId == null) ModelState.AddModelError("GenreSelectList", "Select One or More Genres");
-
+                if (newItem.FacultyId == -1)
+                    ModelState.AddModelError("SelectListOfFaculty", "Select a faculty");
                 cancellationToCreate.Date = newItem.Date;
                 cancellationToCreate.Message = newItem.Message;
 
