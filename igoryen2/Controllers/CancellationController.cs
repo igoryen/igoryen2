@@ -161,7 +161,7 @@ namespace igoryen2.Controllers {
             return View(cancellationToEdit);
         }
 
-        // v1
+        // v2
         // POST: /Cancellation/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -195,8 +195,13 @@ namespace igoryen2.Controllers {
                     lsbNew.Add(sbNew);
                 }
                 cancellationNew.Students = lsbNew;
-                db.Detach(cancellationOld);
-                db.Entry(cancellationNew).State = EntityState.Modified;
+
+                var entry = db.Entry(cancellationOld);
+                entry.OriginalValues.SetValues(cancellationOld);
+                entry.CurrentValues.SetValues(cancellationNew);
+                db.Entry(cancellationOld).State = EntityState.Deleted;
+                db.Cancellations.Add(cancellationNew);
+
                 db.SaveChanges();
 
                 //------------------------------------
