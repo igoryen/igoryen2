@@ -69,7 +69,7 @@ namespace igoryen2.Controllers
             return View();
         }
 
-        //
+        // v2
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -82,6 +82,8 @@ namespace igoryen2.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new DataContext()));
+                    var idResult = um.AddToRole(user.Id, "Faculty");
                     await SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }

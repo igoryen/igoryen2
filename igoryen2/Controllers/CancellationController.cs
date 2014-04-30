@@ -54,7 +54,7 @@ namespace igoryen2.Controllers {
             return View(cancellation);
         }
 
-        // v2
+        // v3
         // GET: /Cancellation/Create
         public ActionResult Create() {
             if (User.IsInRole("Faculty")) {
@@ -64,6 +64,11 @@ namespace igoryen2.Controllers {
             if (User.IsInRole("Admin")) {
                 cancellationToCreate.SelectListOfCourse = rc.getSelectListOfCourse();
                 cancellationToCreate.SelectListOfFaculty = rf.getSelectListOfFaculty();
+            }
+            if (cancellationToCreate.SelectListOfCourse == null) {
+                var errors = new ViewModels.VM_Error();
+                errors.ErrorMessages["ExceptionMessage"] = "This faculty has no courses";
+                return View("Error", errors);
             }
             return View(cancellationToCreate);
         }
