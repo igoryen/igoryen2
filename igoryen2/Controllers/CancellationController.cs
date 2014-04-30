@@ -42,33 +42,34 @@ namespace igoryen2.Controllers {
             return View(cancellations.ToList());
         }
 
+        // v2
         // GET: /Cancellation/Details/5
         public ActionResult Details(int? id) {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cancellation cancellation = db.Cancellations.Find(id);
+            Cancellation cancellation = db.Cancellations.Include("Creator").SingleOrDefault(cc => cc.CancellationId == id);
             if (cancellation == null) {
                 return HttpNotFound();
             }
             return View(cancellation);
         }
 
-        // v3
+        // v4
         // GET: /Cancellation/Create
         public ActionResult Create() {
             if (User.IsInRole("Faculty")) {
                 var currentuser = manager.FindById(User.Identity.GetUserId());
                 cancellationToCreate.SelectListOfCourse = rc.getSelectListOfCourse(currentuser.Id);
+                if (cancellationToCreate.SelectListOfCourse == null) {
+                    var errors = new ViewModels.VM_Error();
+                    errors.ErrorMessages["ExceptionMessage"] = "This faculty has no courses";
+                    return View("Error", errors);
+                }
             }
             if (User.IsInRole("Admin")) {
                 cancellationToCreate.SelectListOfCourse = rc.getSelectListOfCourse();
                 cancellationToCreate.SelectListOfFaculty = rf.getSelectListOfFaculty();
-            }
-            if (cancellationToCreate.SelectListOfCourse == null) {
-                var errors = new ViewModels.VM_Error();
-                errors.ErrorMessages["ExceptionMessage"] = "This faculty has no courses";
-                return View("Error", errors);
             }
             return View(cancellationToCreate);
         }

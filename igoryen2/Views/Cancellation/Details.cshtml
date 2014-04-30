@@ -11,6 +11,16 @@
 	<hr />
     <dl class="dl-horizontal">
 
+        @if (User.IsInRole("Admin")) {
+            <dt>
+                Faculty
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Creator.UserName)
+            </dd>
+        }
+
         <dt>
             @Html.DisplayNameFor(model => model.CourseCode)
         </dt>
