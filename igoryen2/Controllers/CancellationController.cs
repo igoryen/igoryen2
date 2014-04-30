@@ -141,7 +141,7 @@ namespace igoryen2.Controllers {
             }
         }
 
-        // v2
+        // v3
         // GET: /Cancellation/Edit/5
         public ActionResult Edit(int? id) {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -155,13 +155,25 @@ namespace igoryen2.Controllers {
             cancellationToEdit.Date = cancellation.Date;
             cancellationToEdit.Message = cancellation.Message;
 
-            var courses = db.Courses.Where(course => course.Faculty.Id == currentUser.Id).ToList();
-            string selected = cancellation.CourseCode;
-            cancellationToEdit.SelectListOfCourse = new SelectList(courses, "CourseId", "CourseCode", selected);
+            List<Course> courses = new List<Course>();
+            if (User.IsInRole("Faculty")) {
+                courses = db.Courses.Where(course => course.Faculty.Id == currentUser.Id).ToList();
+                string selected = cancellation.CourseCode;
+                cancellationToEdit.SelectListOfCourse = new SelectList(courses, "CourseId", "CourseCode", selected);
+            }
+            if (User.IsInRole("Admin")) {
+                courses = db.Courses.ToList();
+                string selected = cancellation.CourseCode;
+                cancellationToEdit.SelectListOfCourse = new SelectList(courses, "CourseId", "CourseCode", selected);
+                var faculties = db.Faculties.ToList();
+                cancellationToEdit.SelectListOfFaculty = new SelectList(faculties, "PersonId", "Caption", selected);
+            }
+
+
             return View(cancellationToEdit);
         }
 
-        // v2
+        // v3
         // POST: /Cancellation/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -178,7 +190,13 @@ namespace igoryen2.Controllers {
                 course = db.Courses.AsNoTracking().Include("Students").FirstOrDefault(c => c.CourseId == newItem.CourseId);
                 cancellationNew.CourseCode = course.CourseCode;
                 cancellationNew.CourseId = newItem.CourseId;
-                cancellationNew.Creator = currentUser;
+                if (User.IsInRole("Faculty")) {
+                    cancellationNew.Creator = currentUser;
+                }
+                if (User.IsInRole("Admin")) {
+                    var faculty = db.Faculties.SingleOrDefault(f => f.PersonId == newItem.FacultyId);
+                    cancellationNew.Creator = faculty;
+                }
                 cancellationNew.Date = newItem.Date;
                 cancellationNew.Message = newItem.Message;
                 cancellationNew.Students = new List<StudentBase>();
